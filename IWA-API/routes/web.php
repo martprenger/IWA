@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\loginController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\previewController;
 
@@ -19,3 +20,4 @@ Route::get('/', function () {
 });
 
 Route::get('/preview', [previewController::class, 'show']);
+Route::get('/login', [loginController::class, 'show']);
