@@ -5,7 +5,7 @@ Laravel API and dashboard for IWA
 PHP         8.3.3
 Laravel     10.47.0
 
-Delete semicolon from php.ini at folowing line:
+Delete semicolon from php.ini at following line:
  - ;extension=zip
 
 Cd into IWA-API and run:
