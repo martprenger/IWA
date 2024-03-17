@@ -22,4 +22,5 @@ Route::get('/', function () {
 
 Route::get('/preview', [previewController::class, 'show']);
 Route::get('/login', [loginController::class, 'show']);
+Route::post('/custom-login', [loginController::class, 'customLogin'])->name('custom-login');
 Route::get('/testdb', [testdbController::class, 'index']);

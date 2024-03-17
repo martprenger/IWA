@@ -4,19 +4,21 @@
 
 
     <div class="container-md">
-        <form>
+        <form method="POST" action="{{ route('custom-login') }}">
+            @csrf
             <div class="mb-3">
-                <label for="exampleInputEmail1" class="form-label">Email address</label>
-                <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
-                <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+                <label for="exampleInputEmail1" class="form-label">werknemer id</label>
+                <input type="text" placeholder="Email" id="email" class="form-control"  aria-describedby="emailHelp" name="email" required autofocus>
+                @if ($errors->has('email'))
+                    <span class="text-danger">{{ $errors->first('name') }}</span>
+                @endif
             </div>
             <div class="mb-3">
                 <label for="exampleInputPassword1" class="form-label">Password</label>
-                <input type="password" class="form-control" id="exampleInputPassword1">
-            </div>
-            <div class="mb-3 form-check">
-                <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                <label class="form-check-label" for="exampleCheck1">Check me out</label>
+                <input  type="password" placeholder="Password" id="password"class="form-control"  name="password" required>
+                @if ($errors->has('password'))
+                    <span class="text-danger">{{ $errors->first('password') }}</span>
+                @endif
             </div>
             <button type="submit" class="btn btn-primary">Submit</button>
         </form>
