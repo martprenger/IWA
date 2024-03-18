@@ -4,6 +4,7 @@ use App\Http\Controllers\loginController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\testdbController;
+use App\Http\Controllers\MachineController;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,7 +21,10 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/dashboard', [DashboardController::class, 'show']);
+
 Route::get('/login', [loginController::class, 'show']);
 Route::post('/custom-login', [loginController::class, 'customLogin'])->name('custom-login');
+Route::get('/dashboard', [DashboardController::class, 'show']);
+Route::get('/machinePage', [MachineController::class, 'show']);
+Route::get('/machinePage', [MachineController::class, 'getMachines']);
 Route::get('/testdb', [testdbController::class, 'index']);
