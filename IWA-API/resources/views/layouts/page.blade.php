@@ -12,7 +12,9 @@
 </head>
 <body>
 
-    @section('body')
+    @yield('navbar')
+
+    @yield('body')
 
 </body>
 </html>
