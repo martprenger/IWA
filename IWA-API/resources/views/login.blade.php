@@ -1,8 +1,10 @@
 @extends('layouts.page')
-@include('layouts.navbar')
+
+@section('navbar')
+    @include('layouts.navbar')
+@endsection
+
 @section('body')
-
-
     <div class="container-md">
         <form method="POST" action="{{ route('custom-login') }}">
             @csrf
@@ -23,3 +25,4 @@
             <button type="submit" class="btn btn-primary">Submit</button>
         </form>
     </div>
+@endsection
