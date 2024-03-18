@@ -2,7 +2,10 @@
 @include('layouts.navbar')
 @section('body')
 
-
+<div>
+    <div class="container-image">
+        <img src="{{ asset('images/LogoIWA.jpg') }}" alt="">
+    </div>
     <div class="container-md">
         <form method="POST" action="{{ route('custom-login') }}">
             @csrf
@@ -23,3 +26,5 @@
             <button type="submit" class="btn btn-primary">Submit</button>
         </form>
     </div>
+
+</div>
