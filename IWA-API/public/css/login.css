@@ -1,13 +1,18 @@
 .container-md{
     width: 30%;
-    margin-top: 10%;
-    margin-bottom: 10%;
-    margin-left: 40%;
-    margin-right: 40%;
+
     padding: 10px;
     border-radius: 10px;
     background-color: #f2f2f2;
     box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
+}
+
+.container-image{
+    margin-left: 40%;
+    margin-right: 40%;
+    padding-top: 5%;
+    padding-bottom: 2%;
+
 }
 
 
