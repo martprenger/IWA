@@ -1,29 +1,19 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <!-- Left Side Of Navbar -->
+    <div class="navbar-brand">
+        <img src="{{ asset('images/LogoIWA.jpg') }}" alt="Logo" width="30" height="24" class="d-inline-block align-text-top">
+    </div>
 
-<nav class="navbar navbar-expand-lg bg-body-tertiary">
-    <div class="container-fluid">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="#">
-                <img src="{{ asset('images/LogoIWA.jpg') }}" alt="Logo" width="30" height="24" class="d-inline-block align-text-top">
-            </a>
-        </div>
-        <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav">
-                <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="{{ url('/') }}">Dashboard</a>
-                    <i class="fa-solid fa-house"></i>
-                    <i class="fas fa-user"></i>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#"></a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Pricing</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link disabled" aria-disabled="true">Disabled</a>
-                </li>
-            </ul>
-        </div>
+    <!-- Center Side Of Navbar -->
+    <div class="mx-auto order-0">
+        <a class="navbar-brand mr-auto" href="#">Home</a>
+        <a class="navbar-brand mr-auto" href="#">Machines</a>
+        <a class="navbar-brand mr-auto" href="#">Settings</a>
+        <a class="navbar-brand mr-auto" href="#">Alarm</a>
+    </div>
+
+    <!-- Right Side Of Navbar -->
+    <div class="navbar-brand">
+        <a class="nav-link disabled" aria-disabled="true">Account</a>
     </div>
 </nav>
-

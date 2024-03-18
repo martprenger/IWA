@@ -1,7 +1,7 @@
 @extends('layouts.page')
 
 @section('body')
-    
+
 <div>
     <div class="container-image">
         <img src="{{ asset('images/LogoIWA.jpg') }}" alt="">
