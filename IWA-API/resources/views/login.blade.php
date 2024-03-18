@@ -10,8 +10,8 @@
         <form method="POST" action="{{ route('custom-login') }}">
             @csrf
             <div class="mb-3">
-                <label for="exampleInputEmail1" class="form-label">werknemer id</label>
-                <input type="text" placeholder="Email" id="email" class="form-control"  aria-describedby="emailHelp" name="email" required autofocus>
+                <label for="exampleInputEmail1" class="form-label">werknemer ID</label>
+                <input type="text" placeholder="ID" id="id" class="form-control"  aria-describedby="emailHelp" name="id" required autofocus>
                 @if ($errors->has('email'))
                     <span class="text-danger">{{ $errors->first('name') }}</span>
                 @endif
