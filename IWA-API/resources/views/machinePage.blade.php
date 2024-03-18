@@ -3,28 +3,58 @@
 @section('body')
 
 
-    <div class="row justify-content-center">
-        <div class="col-md-6">
-            <div class="card mt-3">
-                <h1>Machine ID's</h1>
-                <h1>land</h1>
-                <h1>Temperatuur</h1>
-                <h1>Verbinding</h1>
-                <h1>Storing</h1>
-                <h1>instellingen</h1>
-                <h1>verwijderen</h1>
+
+    <div class="container text-center">
+        <div class="row">
+            <div class="col order-first">
+                Machine ID's
+            </div>
+            <div class="col">
+                land
+            </div>
+            <div class="col">
+                Temperatuur
+            </div>
+            <div class="col">
+                Verbinding
+            </div>
+            <div class="col">
+                Storing
+            </div>
+            <div class="col">
+                instellingen
+            </div>
+            <div class="col order-last">
+                verwijderen
             </div>
         </div>
     </div>
 
 @foreach($machines as $machine)
-    <div class="row justify-content-center">
-        <div class="col-md-6">
-            <div class="card mt-3">
-                <h1>{{$machine->station_name}}</h1>
-                <h1>{{$machine->country}}</h1>
-
+    <div class="container text-center">
+        <div class="row">
+            <div class="col order-first">
+                {{ $machine->station_name}}
             </div>
+            <div class="col">
+                {{ $machine->country}}
+            </div>
+            <div class="col">
+                ...........
+            </div>
+            <div class="col">
+                ..........
+            </div>
+            <div class="col">
+                ..........
+            </div>
+{{--            <div class="col">--}}
+{{--                <a href="{{ route('machinePage', ['id' => $machine->id]) }}">instellingen</a>--}}
+{{--            </div>--}}
+{{--            <div class="col order-last">--}}
+{{--                <a href="{{ route('deleteMachine', ['id' => $machine->id]) }}">verwijderen</a>--}}
+{{--            </div>--}}
         </div>
     </div>
+
 @endforeach
