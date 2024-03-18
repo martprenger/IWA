@@ -1,9 +1,5 @@
 @extends('layouts.page')
 
-@section('navbar')
-    @include('layouts.navbar')
-@endsection
-
 @section('body')
     <div class="container-md">
         <form method="POST" action="{{ route('custom-login') }}">
