@@ -15,7 +15,7 @@ class MachineController extends Controller
 
     public function getMachines()
     {
-        $weatherStations = DB::table('geolocation')->get();
+        $weatherStations = DB::table('geolocation')->limit(10)->get();
         return view('machinePage', ['machines' => $weatherStations]);
     }
 }
