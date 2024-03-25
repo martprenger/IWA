@@ -39,24 +39,25 @@ Route::get('/dashboard', [DashboardController::class, 'show']);
  */
 
 Route::get('/admin', [DashboardController::class, 'show']);
-Route::get('/mederwerkersInstellingen', [mederwerkersInstellingenController::class, 'show']);
-Route::get('/logsMederwerkers', [logsMederwerkersController::class, 'show']);
-Route::get('mederwerksToevoegen', [mederwerksToevoegenController::class, 'show']);
+Route::get('/medewerkersinstellingen', [EmployeesSettingsController::class, 'show']);
+Route::get('/logsmederwerkers', [logsMederwerkersController::class, 'show']);
+Route::get('medewerkerstoevoegen', [medewerkersToevoegenController::class, 'show']);
 
 
 /*
  * routes voor de de algemene mederwerks
  */
-Route::get('/machineToevoegen', [machineToevoegenController::class, 'show']);
-Route::get('/machinePage', [MachineController::class, 'show']);
-Route::get('/machinePage', [MachineController::class, 'getMachines']);
+Route::get('/machinetoevoegen', [AddMachineController::class, 'show']);
+Route::get('/machinepage', [MachineController::class, 'show'])-> name('machinepage');
+Route::get('/machinepage', [MachineController::class, 'getMachines']);
+
 
 /*
  * routes voor de administief mederwerks
  */
 
-Route::get('/factaturen', [factaturenController::class, 'show']);
-Route::get('/lopendeContracten', [lopendeContractenController::class, 'show']);
+Route::get('/facaturen', [InvoicesController::class, 'show']);
+Route::get('/lopendecontracten', [ContractsController::class, 'show']);
 
 
 

@@ -10,12 +10,12 @@ class MachineController extends Controller
 {
     public function show()
     {
-        return view('machinePage');
+        return view('machines.machinepage');
     }
 
     public function getMachines()
     {
-        $weatherStations = DB::table('geolocation')->limit(10)->get();
-        return view('machinePage', ['machines' => $weatherStations]);
+//        $weatherStations = DB::table('geolocation')->limit(10)->get();
+//        return view('machines/machinePage', ['machines' => $weatherStations]);
     }
 }
