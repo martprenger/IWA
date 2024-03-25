@@ -4,6 +4,7 @@ use App\Http\Controllers\loginController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\previewController;
 use App\Http\Controllers\testdbController;
+use App\Http\Controllers\CreateUserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -24,3 +25,4 @@ Route::get('/preview', [previewController::class, 'show']);
 Route::get('/login', [loginController::class, 'show']);
 Route::post('/custom-login', [loginController::class, 'customLogin'])->name('custom-login');
 Route::get('/testdb', [testdbController::class, 'index']);
+Route::get('/create_user', [CreateUserController::class, 'show']);
