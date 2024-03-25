@@ -26,5 +26,4 @@ Route::get('/login', [loginController::class, 'show']);
 Route::post('/custom-login', [loginController::class, 'customLogin'])->name('custom-login');
 Route::get('/dashboard', [DashboardController::class, 'show']);
 Route::get('/machinePage', [MachineController::class, 'show']);
-Route::get('/machinePage', [MachineController::class, 'getMachines']);
 Route::get('/testdb', [testdbController::class, 'index']);
