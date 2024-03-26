@@ -34,6 +34,7 @@ Route::post('/custom-login', [loginController::class, 'customLogin'])->name('cus
 
 Route::get('/dashboard', [DashboardController::class, 'show']);
 
+
 /*
  * routes voor de admin
  */
@@ -49,7 +50,7 @@ Route::get('medewerkerstoevoegen', [medewerkersToevoegenController::class, 'show
  */
 Route::get('/machinetoevoegen', [AddMachineController::class, 'show']);
 Route::get('/machinepage', [MachineController::class, 'show'])-> name('machinepage');
-Route::get('/machinepage', [MachineController::class, 'getMachines']);
+
 
 
 /*
@@ -60,5 +61,8 @@ Route::get('/facaturen', [InvoicesController::class, 'show']);
 Route::get('/lopendecontracten', [ContractsController::class, 'show']);
 
 
+
+
+Route::get('/machinePage', [MachineController::class, 'show']);
 
 Route::get('/testdb', [testdbController::class, 'index']);
