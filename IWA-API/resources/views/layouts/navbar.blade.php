@@ -6,8 +6,8 @@
 
     <!-- Center Side Of Navbar -->
     <div class="mx-auto order-0">
-        <a class="navbar-brand mr-auto" href="#">Home</a>
-        <a class="navbar-brand mr-auto" href="#">Machines</a>
+        <a class="navbar-brand mr-auto" href="{{route('dashboard')}}">Home</a>
+        <a class="navbar-brand mr-auto" href={{route ('machinepage')}}>Machines</a>
         <a class="navbar-brand mr-auto" href="#">Settings</a>
         <a class="navbar-brand mr-auto" href="#">Alarm</a>
     </div>

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AddMachineController;
 use App\Http\Controllers\loginController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DashboardController;
@@ -32,7 +33,7 @@ Route::post('/custom-login', [loginController::class, 'customLogin'])->name('cus
  * routes voor de dashboard
  */
 
-Route::get('/dashboard', [DashboardController::class, 'show']);
+Route::get('/dashboard', [DashboardController::class, 'show'])->name('dashboard');
 
 
 /*
@@ -48,8 +49,9 @@ Route::get('medewerkerstoevoegen', [medewerkersToevoegenController::class, 'show
 /*
  * routes voor de de algemene mederwerks
  */
-Route::get('/machinetoevoegen', [AddMachineController::class, 'show']);
+
 Route::get('/machinepage', [MachineController::class, 'show'])-> name('machinepage');
+Route::get('/machinetoevoegen', [AddMachineController::class, 'show'])-> name('machinetoevoegen');
 
 
 
