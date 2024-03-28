@@ -62,8 +62,7 @@
 
 
         <a href="{{ route('machinetoevoegen') }}">
-            <i  class="fa-house-damage"></i>
-
+            <i class="fas fa-house"></i>
         </a>
 
 
