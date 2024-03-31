@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\testdbController;
 use App\Http\Controllers\MachineController;
+use App\Http\Controllers\AddStationController;
 
 /*
 |--------------------------------------------------------------------------
@@ -65,5 +66,6 @@ Route::get('/lopendecontracten', [ContractsController::class, 'show']);
 
 Route::get('/machinePage', [MachineController::class, 'show']);
 Route::get('/add-station', [AddStationController::class, 'show']);
+Route::post('/add-station', [AddStationController::class, 'handleStationData'])->name('add-station');
 
 Route::get('/testdb', [testdbController::class, 'index']);
