@@ -1,7 +1,11 @@
 <?php
 
 use App\Http\Controllers\AddMachineController;
+use App\Http\Controllers\AdminController;
+use App\Http\Controllers\EmployeesSettingsController;
 use App\Http\Controllers\loginController;
+use App\Http\Controllers\LogsMedewerkersController;
+use App\Http\Controllers\AddEmployeesController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\testdbController;
@@ -40,10 +44,11 @@ Route::get('/dashboard', [DashboardController::class, 'show'])->name('dashboard'
  * routes voor de admin
  */
 
-Route::get('/admin', [DashboardController::class, 'show']);
-Route::get('/medewerkersinstellingen', [EmployeesSettingsController::class, 'show']);
-Route::get('/logsmederwerkers', [logsMederwerkersController::class, 'show']);
-Route::get('medewerkerstoevoegen', [medewerkersToevoegenController::class, 'show']);
+Route::get('/admin', [AdminController::class, 'show'])->name('admin');
+Route::get('/medewerkersinstellingen', [EmployeesSettingsController::class, 'show']) ->name('medewerkersinstellingen');
+Route::get('/logsmedewerkers', [LogsMedewerkersController::class, 'show']) ->name('logsmedewerkers');
+Route::get('/medewerkerstoevoegen', [AddEmployeesController::class, 'show']) ->name('addemployees');
+Route::post('/medewerkerstoevoegen', [AddEmployeesController::class, 'addemployee']) ->name('addemployee');
 
 
 /*
