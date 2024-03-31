@@ -21,10 +21,49 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+/*
+ * voor het inloggen op de website
 
+ */
 Route::get('/login', [loginController::class, 'show']);
 Route::post('/custom-login', [loginController::class, 'customLogin'])->name('custom-login');
+
+/*
+ * routes voor de dashboard
+ */
+
 Route::get('/dashboard', [DashboardController::class, 'show']);
+
+
+/*
+ * routes voor de admin
+ */
+
+Route::get('/admin', [DashboardController::class, 'show']);
+Route::get('/medewerkersinstellingen', [EmployeesSettingsController::class, 'show']);
+Route::get('/logsmederwerkers', [logsMederwerkersController::class, 'show']);
+Route::get('medewerkerstoevoegen', [medewerkersToevoegenController::class, 'show']);
+
+
+/*
+ * routes voor de de algemene mederwerks
+ */
+Route::get('/machinetoevoegen', [AddMachineController::class, 'show']);
+Route::get('/machinepage', [MachineController::class, 'show'])-> name('machinepage');
+
+
+
+/*
+ * routes voor de administief mederwerks
+ */
+
+Route::get('/facaturen', [InvoicesController::class, 'show']);
+Route::get('/lopendecontracten', [ContractsController::class, 'show']);
+
+
+
+
 Route::get('/machinePage', [MachineController::class, 'show']);
 Route::get('/add-station', [AddStationController::class, 'show']);
+
 Route::get('/testdb', [testdbController::class, 'index']);
