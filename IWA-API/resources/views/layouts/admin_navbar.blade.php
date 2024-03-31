@@ -11,7 +11,6 @@
         <a class="navbar-brand mr-auto" href="#">Settings</a>
         <a class="navbar-brand mr-auto" href="#">Alarm</a>
         <a class="navbar-brand mr-auto" href="{{route ('medewerkersinstellingen')}}">werknemers</a>
-        <a class="navbar-brand mr-auto" href="{{route ('addemployees')}}">werknemers toevoegen</a>
         <a class="navbar-brand mr-auto" href="{{route('logsmedewerkers')}}">logs</a>
     </div>
 

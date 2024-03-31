@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AddMachineController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\EmployeesController;
 use App\Http\Controllers\EmployeesSettingsController;
 use App\Http\Controllers\loginController;
 use App\Http\Controllers\LogsMedewerkersController;
@@ -30,8 +31,8 @@ Route::get('/', function () {
  * voor het inloggen op de website
 
  */
-Route::get('/login', [loginController::class, 'show']);
-Route::post('/custom-login', [loginController::class, 'customLogin'])->name('custom-login');
+Route::get('/login', [EmployeesController::class, 'loginShow'])->name('login');
+Route::post('/custom-login', [EmployeesController::class, 'customLogin'])->name('custom-login');
 
 /*
  * routes voor de dashboard
@@ -45,10 +46,12 @@ Route::get('/dashboard', [DashboardController::class, 'show'])->name('dashboard'
  */
 
 Route::get('/admin', [AdminController::class, 'show'])->name('admin');
-Route::get('/medewerkersinstellingen', [EmployeesSettingsController::class, 'show']) ->name('medewerkersinstellingen');
+
 Route::get('/logsmedewerkers', [LogsMedewerkersController::class, 'show']) ->name('logsmedewerkers');
-Route::get('/medewerkerstoevoegen', [AddEmployeesController::class, 'show']) ->name('addemployees');
-Route::post('/medewerkerstoevoegen', [AddEmployeesController::class, 'addemployee']) ->name('addemployee');
+
+Route::get('/medewerkersinstellingen', [EmployeesController::class, 'employeesSettingShow']) ->name('medewerkersinstellingen');
+Route::get('/medewerkerstoevoegen', [EmployeesController::class, 'addEmployeeShow']) ->name('addemployees');
+Route::post('/medewerkerstoevoegen', [EmployeesController::class, 'addEmployee']) ->name('addemployee');
 
 
 /*
