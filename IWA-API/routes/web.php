@@ -49,9 +49,13 @@ Route::get('/admin', [AdminController::class, 'show'])->name('admin');
 
 Route::get('/logsmedewerkers', [LogsMedewerkersController::class, 'show']) ->name('logsmedewerkers');
 
-Route::get('/medewerkersinstellingen', [EmployeesController::class, 'employeesSettingShow']) ->name('medewerkersinstellingen');
+Route::get('/medewerkers', [EmployeesController::class, 'employeesSettingShow']) ->name('medewerkers');
 Route::get('/medewerkerstoevoegen', [EmployeesController::class, 'addEmployeeShow']) ->name('addemployees');
+Route::get('/medewerkerwijzigen/{id}', [EmployeesController::class, 'editEmployeeShow']) ->name('editemployees');
+
 Route::post('/medewerkerstoevoegen', [EmployeesController::class, 'addEmployee']) ->name('addemployee');
+Route::post('/deleteemployee', [EmployeesController::class, 'deleteEmployee']) ->name('deleteemployee');
+Route::post('/medewerkerwijzigen', [EmployeesController::class, 'editEmployee']) ->name('editemployee');
 
 
 /*
