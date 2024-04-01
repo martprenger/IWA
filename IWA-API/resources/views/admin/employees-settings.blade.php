@@ -31,8 +31,14 @@
                                         <td>{{ $employee->role }}</td>
                                         <td>{{ $employee->status }}</td>
                                         <td>
-                                            <a href="{{ route('admin', $employee->id) }}" class="btn btn-primary">Edit</a>
-                                            <a href="{{ route('admin', $employee->id) }}" class="btn btn-danger">Delete</a>
+                                            <div style="display: flex; align-items: center; margin-bottom: -15px; margin-top: -15px;">
+                                                <a href="{{ route('admin', $employee->id) }}" class="btn btn-primary" style="margin-right: 5px;">Edit</a>
+                                                <form method="POST" action="{{ route('deleteemployee') }}" style="margin-top: 15px;">
+                                                    @csrf
+                                                    <input type="hidden" name="id" value="{{ $employee->id }}">
+                                                    <button type="submit" class="btn btn-danger">Delete</button>
+                                                </form>
+                                            </div>
                                         </td>
                                     </tr>
                                 @endforeach

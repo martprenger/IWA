@@ -52,6 +52,7 @@ Route::get('/logsmedewerkers', [LogsMedewerkersController::class, 'show']) ->nam
 Route::get('/medewerkersinstellingen', [EmployeesController::class, 'employeesSettingShow']) ->name('medewerkersinstellingen');
 Route::get('/medewerkerstoevoegen', [EmployeesController::class, 'addEmployeeShow']) ->name('addemployees');
 Route::post('/medewerkerstoevoegen', [EmployeesController::class, 'addEmployee']) ->name('addemployee');
+Route::post('/deleteemployee', [EmployeesController::class, 'deleteEmployee']) ->name('deleteemployee');
 
 
 /*
