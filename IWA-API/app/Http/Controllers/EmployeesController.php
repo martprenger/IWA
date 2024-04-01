@@ -99,7 +99,7 @@ class EmployeesController
             return redirect()->intended('dashboard')
                 ->withSuccess('Signed in');
         }
-        return redirect("admin")->withSuccess('Login details are not valid');
+        return redirect("login")->withSuccess('Login details are not valid');
     }
 
 
