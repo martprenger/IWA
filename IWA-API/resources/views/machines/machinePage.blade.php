@@ -2,6 +2,9 @@
 @include('layouts.navbar')
 @section('body')
 
+
+
+
     <div class="container text-center">
         <div class="row">
             <div class="col-1"> <!-- Adjust column widths as needed -->
@@ -55,5 +58,13 @@
             </div>
         </div>
     @endforeach
+
+
+
+        <a href="{{ route('machinetoevoegen') }}">
+            <i class="fas fa-house"></i>
+        </a>
+
+
 
 @endsection

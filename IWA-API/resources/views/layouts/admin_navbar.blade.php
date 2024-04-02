@@ -10,6 +10,8 @@
         <a class="navbar-brand mr-auto" href={{route ('machinepage')}}>Machines</a>
         <a class="navbar-brand mr-auto" href="#">Settings</a>
         <a class="navbar-brand mr-auto" href="#">Alarm</a>
+        <a class="navbar-brand mr-auto" href="{{route ('medewerkers')}}">werknemers</a>
+        <a class="navbar-brand mr-auto" href="{{route('logsmedewerkers')}}">logs</a>
     </div>
 
     <!-- Right Side Of Navbar -->
