@@ -14,6 +14,7 @@
 
     <!-- Eigen css -->
     <link rel="stylesheet" type="text/css" href="{{ asset('css/page.css') }}">
+    <link href="/css/iwa-colors.css" rel="stylesheet" >
 </head>
 <body>
 
