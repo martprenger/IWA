@@ -90,7 +90,7 @@ class EmployeesController
 
     public function customLogin(Request $request)
     {
-        $request->validate([git
+        $request->validate([
             'id' => 'required',
             'password' => 'required',
         ]);
