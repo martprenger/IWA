@@ -76,7 +76,11 @@ Route::get('/machinetoevoegen', [AddMachineController::class, 'show'])-> name('m
 Route::get('/facaturen', [InvoicesController::class, 'show']);
 Route::get('/lopendecontracten', [ContractsController::class, 'show']);
 
+/*
+ * routes voor de API
+ */
 
+Route::get('/testdb', [testdbController::class, 'index']);
 
 
 Route::get('/machinePage', [MachineController::class, 'show']);
