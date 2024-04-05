@@ -2,8 +2,11 @@
 
 use App\Http\Controllers\AddMachineController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\API_Generator;
+use App\Http\Controllers\ContractsController;
 use App\Http\Controllers\EmployeesController;
 use App\Http\Controllers\EmployeesSettingsController;
+use App\Http\Controllers\InvoicesController;
 use App\Http\Controllers\loginController;
 use App\Http\Controllers\LogsMedewerkersController;
 use App\Http\Controllers\AddEmployeesController;
@@ -71,15 +74,14 @@ Route::get('/machinetoevoegen', [AddMachineController::class, 'show'])-> name('m
 
 
 /*
- * routes voor de administief mederwerks
+ * routes voor de administief mederwerks en het maken van API
  */
 
-Route::get('/facaturen', [InvoicesController::class, 'show']);
-Route::get('/lopendecontracten', [ContractsController::class, 'show']);
+Route::get('/facaturen', [InvoicesController::class, 'show'])->name('facturen');
+Route::get('/lopendecontracten', [ContractsController::class, 'show'])->name('contracten');
+Route::get('/api_generator', [API_Generator::class, 'show'])->name('API-generator');
 
-/*
- * routes voor de API
- */
+
 
 Route::get('/testdb', [testdbController::class, 'index']);
 
