@@ -25,6 +25,18 @@
                     @endif
                 </div>
                 <div class="mb-3">
+                    <label for="worker_type" class="form-label">Worker Type</label>
+                    <select class="form-control" id="worker_type" name="worker_type" required>
+                        <option value="">Select Worker Type</option>
+                        <option value="admin">Admin</option>
+                        <option value="wetenschappelijk">Wetenschappelijk</option>
+                        <option value="administratief">Administratief</option>
+                    </select>
+                    @if ($errors->has('worker_type'))
+                        <span class="text-danger">{{ $errors->first('worker_type') }}</span>
+                    @endif
+                </div>
+                <div class="mb-3">
                     <label for="exampleInputPassword1" class="form-label">Password</label>
                     <input  type="password" placeholder="Password" id="password"class="form-control"  name="password" required>
                     @if ($errors->has('password'))

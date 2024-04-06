@@ -6,9 +6,14 @@ use Illuminate\Http\Request;
 
 class LogsMedewerkersController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+        $this->middleware('navbar');
+    }
+
     public function show()
     {
-        $navbar = 'layouts.admin_navbar';
-        return view('admin.logs', ['navbar' => $navbar]);
+        return view('admin.logs');
     }
 }

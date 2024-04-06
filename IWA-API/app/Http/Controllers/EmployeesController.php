@@ -8,13 +8,18 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\View\View;
 
-class EmployeesController
+class EmployeesController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+        $this->middleware('navbar');
+    }
+
     //add employees
     public function addEmployeeShow()
     {
-        $navbar = 'layouts.admin_navbar';
-        return view('admin.addEmployee', ['navbar' => $navbar]);
+        return view('admin.addEmployee');
     }
 
 
@@ -23,6 +28,7 @@ class EmployeesController
         $validatedData = $request->validate([
             'name' => 'required|unique:users',
             'email' => 'required|email|unique:users,email',
+            'worker_type' => 'required',
             'password' => 'required|min:6',
         ]);
 
@@ -49,10 +55,8 @@ class EmployeesController
     //edit employees
     public function editEmployeeShow($id)
     {
-
-        $navbar = 'layouts.admin_navbar';
         $employee = User::find($id);
-        return view('admin.editEmployee', ['navbar' => $navbar, 'employee' => $employee]);
+        return view('admin.editEmployee', ['employee' => $employee]);
     }
 
     public function editEmployee(Request $request)
@@ -62,6 +66,7 @@ class EmployeesController
             'original_id' => 'required',
             'id' => 'required',
             'name' => 'required',
+            'worker_type' => 'required',
             'email' => 'required|email',
         ]);
 
@@ -74,12 +79,10 @@ class EmployeesController
 
     public function employeesSettingShow()
     {
-        $navbar = 'layouts.admin_navbar';
-
         //get list of employees
         $employees = User::all();
 
-        return view('admin.employees', ['navbar' => $navbar, 'employees' => $employees]);
+        return view('admin.employees', ['employees' => $employees]);
     }
 
     //login employees

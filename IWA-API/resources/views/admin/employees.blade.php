@@ -12,7 +12,6 @@
                     <th>Employee Name</th>
                     <th>Employee Email</th>
                     <th>Employee Role</th>
-                    <th>Employee Status</th>
                     <th><a href="{{ route('addemployees') }}" class="btn btn-success">Add Employee</a></th>
                 </tr>
                 </thead>
@@ -23,8 +22,7 @@
                         <td>{{ $employee->id }}</td>
                         <td>{{ $employee->name }}</td>
                         <td>{{ $employee->email }}</td>
-                        <td>{{ $employee->role }}</td>
-                        <td>{{ $employee->status }}</td>
+                        <td>{{ $employee->worker_type }}</td>
                         <td>
                             <!--TODO: make styling not use -15 px, i know this is bad but i hate front end-->
                             <div
