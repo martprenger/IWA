@@ -6,9 +6,14 @@ use Illuminate\Http\Request;
 
 class AdminController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+        $this->middleware('navbar');
+    }
+
     public function show()
     {
-        $navbar = 'layouts.admin_navbar';
-        return view('admin.admin', ['navbar' => $navbar]);
+        return view('admin.admin');
     }
 }

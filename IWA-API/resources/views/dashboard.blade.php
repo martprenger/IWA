@@ -1,6 +1,7 @@
 @extends('layouts.page')
-@include('layouts.navbar')
+
 @section('body')
+    @include($navbar)
 
     <div class="row justify-content-center">
         <div class="col-md-6">
@@ -9,3 +10,4 @@
             </div>
         </div>
     </div>
+@endsection

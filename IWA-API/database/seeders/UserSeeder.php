@@ -21,6 +21,7 @@ class UserSeeder extends Seeder
             'id' => 1,
             'name' => 'jankees pieter',
             'email' => 'jankees@gmail.com',
+            'worker_type' => 'admin',
             'password' => Hash::make('password'), // Use Hash::make to hash the password
         ]);
 
