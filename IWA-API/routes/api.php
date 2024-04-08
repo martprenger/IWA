@@ -20,5 +20,6 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::put('/postWeatherData', [PostWeatherDataController::class, "processWeatherData"]);
+Route::post('/postWeatherData', [PostWeatherDataController::class, "processWeatherData"]);
+
 
