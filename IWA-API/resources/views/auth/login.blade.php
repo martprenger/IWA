@@ -12,10 +12,10 @@
                 @csrf
                 <div class="mb-3">
                     <label for="exampleInputEmail1" class="form-label">Werknemer ID</label>
-                    <input type="text" placeholder="ID" id="name" class="form-control" name="name" value="{{ old('name') }}"
+                    <input type="text" placeholder="ID" id="id" class="form-control" name="id" value="{{ old('id') }}"
                            required autocomplete="name" autofocus>
-                    @if ($errors->has('email'))
-                        <span class="text-danger">{{ $errors->first('name') }}</span>
+                    @if ($errors->has('id'))
+                        <span class="text-danger">{{ $errors->first('id') }}</span>
                     @endif
                 </div>
 
