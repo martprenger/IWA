@@ -24,21 +24,22 @@ class PostWeatherDataController extends Controller
                 // Create a new WeatherData model instance
                 $weatherData = new WeatherData();
 
+
                 // Map JSON fields to database columns
-                $weatherData->STN = $data['STN'];
-                $weatherData->DATE = $data['DATE'];
-                $weatherData->TIME = $data['TIME'];
-                $weatherData->TEMP = $data['TEMP'];
-                $weatherData->DEWP = $data['DEWP'];
-                $weatherData->STP = $data['STP'];
-                $weatherData->SLP = $data['SLP'];
-                $weatherData->VISIB = $data['VISIB'];
-                $weatherData->WDSP = $data['WDSP'];
-                $weatherData->PRCP = $data['PRCP'];
-                $weatherData->SNDP = $data['SNDP'];
-                $weatherData->FRSHTT = $data['FRSHTT'];
-                $weatherData->CLDC = $data['CLDC'];
-                $weatherData->WNDDIR = $data['WNDDIR'];
+                $weatherData->STN = $data['STN'] ?? null;
+                $weatherData->DATE = $data['DATE'] ?? null;
+                $weatherData->TIME = $data['TIME'] ?? null;
+                $weatherData->TEMP = $data['TEMP'] ?? null;
+                $weatherData->DEWP = $data['DEWP'] ?? null;
+                $weatherData->STP = $data['STP'] ?? null;
+                $weatherData->SLP = $data['SLP'] ?? null;
+                $weatherData->VISIB = $data['VISIB'] ?? null;
+                $weatherData->WDSP = $data['WDSP'] ?? null;
+                $weatherData->PRCP = $data['PRCP'] ?? null;
+                $weatherData->SNDP = $data['SNDP'] ?? null;
+                $weatherData->FRSHTT = $data['FRSHTT'] ?? null;
+                $weatherData->CLDC = $data['CLDC'] ?? null;
+                $weatherData->WNDDIR = $data['WNDDIR'] ?? null;
 
                 // Save the model instance
                 $weatherData->save();

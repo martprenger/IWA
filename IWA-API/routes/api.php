@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\WeatherDataController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -21,5 +22,8 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::post('/postWeatherData', [PostWeatherDataController::class, "processWeatherData"]);
+
+
+Route::get('/weather-data/{id}', [WeatherDataController::class, 'show']);
 
 
