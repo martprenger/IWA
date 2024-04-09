@@ -3,9 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\View\View;
 
-class DashboardController extends Controller
+class AdminController extends Controller
 {
     public function __construct()
     {
@@ -13,8 +12,8 @@ class DashboardController extends Controller
         $this->middleware('navbar');
     }
 
-    public function show(): View
+    public function show()
     {
-        return view('dashboard');
+        return view('admin.admin');
     }
 }

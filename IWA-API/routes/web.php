@@ -1,6 +1,12 @@
 <?php
 
-use App\Http\Controllers\loginController;
+use App\Http\Controllers\AddMachineController;
+use App\Http\Controllers\AdminController;
+use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\EmployeesController;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\LogsMedewerkersController;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\testdbController;
@@ -18,40 +24,42 @@ use App\Http\Controllers\AddStationController;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
-/*
- * voor het inloggen op de website
-
- */
-Route::get('/login', [loginController::class, 'show']);
-Route::post('/custom-login', [loginController::class, 'customLogin'])->name('custom-login');
+Auth::routes();
 
 /*
  * routes voor de dashboard
  */
 
-Route::get('/dashboard', [DashboardController::class, 'show']);
-
+Route::get('/', [DashboardController::class, 'show'])->name('dashboard');
 
 /*
  * routes voor de admin
  */
 
-Route::get('/admin', [DashboardController::class, 'show']);
-Route::get('/medewerkersinstellingen', [EmployeesSettingsController::class, 'show']);
-Route::get('/logsmederwerkers', [logsMederwerkersController::class, 'show']);
-Route::get('medewerkerstoevoegen', [medewerkersToevoegenController::class, 'show']);
+Route::get('/admin', [AdminController::class, 'show'])->name('admin')->middleware('role:admin');
+
+Route::get('/logsmedewerkers', [LogsMedewerkersController::class, 'show']) ->name('logsmedewerkers');
+
+
+/*
+ * routes voor de medewerkers
+ */
+
+Route::get('/medewerkers', [EmployeesController::class, 'employeesSettingShow']) ->name('medewerkers')->middleware('role:admin');
+Route::get('/medewerkerstoevoegen', [EmployeesController::class, 'addEmployeeShow']) ->name('addemployees')->middleware('role:admin');
+Route::get('/medewerkerwijzigen/{id}', [EmployeesController::class, 'editEmployeeShow']) ->name('editemployees')->middleware('role:admin');
+Route::post('/medewerkerstoevoegen', [EmployeesController::class, 'addEmployee']) ->name('addemployee')->middleware('role:admin');
+Route::post('/deleteemployee', [EmployeesController::class, 'deleteEmployee']) ->name('deleteemployee')->middleware('role:admin');
+Route::post('/medewerkerwijzigen', [EmployeesController::class, 'editEmployee']) ->name('editemployee')->middleware('role:admin');
+
 
 
 /*
  * routes voor de de algemene mederwerks
  */
-Route::get('/machinetoevoegen', [AddMachineController::class, 'show']);
-Route::get('/machinepage', [MachineController::class, 'show'])-> name('machinepage');
 
+Route::get('/machinepage', [MachineController::class, 'show'])-> name('machinepage');
+Route::get('/machinetoevoegen', [AddMachineController::class, 'show'])-> name('machinetoevoegen');
 
 
 /*
@@ -69,3 +77,6 @@ Route::get('/add-station', [AddStationController::class, 'show']);
 Route::post('/add-station', [AddStationController::class, 'handleStationData'])->name('add-station');
 
 Route::get('/testdb', [testdbController::class, 'index']);
+
+
+
