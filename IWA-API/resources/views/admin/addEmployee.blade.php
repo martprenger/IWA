@@ -12,7 +12,14 @@
                 @csrf
                 <div class="mb-3">
                     <label for="exampleInputEmail1" class="form-label">werknemer ID</label>
-                    <input type="text" placeholder="ID" id="id" class="form-control"  aria-describedby="emailHelp" name="name" required autofocus>
+                    <input type="text" placeholder="ID" id="id" class="form-control"  aria-describedby="emailHelp" name="id" required autofocus>
+                    @if ($errors->has('id'))
+                        <span class="text-danger">{{ $errors->first('id') }}</span>
+                    @endif
+                </div>
+                <div class="mb-3">
+                    <label for="exampleInputEmail1" class="form-label">naam</label>
+                    <input type="text" placeholder="naam" id="id" class="form-control"  aria-describedby="emailHelp" name="name" required autofocus>
                     @if ($errors->has('name'))
                         <span class="text-danger">{{ $errors->first('name') }}</span>
                     @endif

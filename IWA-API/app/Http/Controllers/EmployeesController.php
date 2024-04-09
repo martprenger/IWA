@@ -26,8 +26,9 @@ class EmployeesController extends Controller
     public function addEmployee(Request $request)
     {
         $validatedData = $request->validate([
-            'name' => 'required|unique:users',
-            'email' => 'required|email|unique:users,email',
+            'id' => 'required|unique:users',
+            'name' => 'required',
+            'email' => 'required|email',
             'worker_type' => 'required',
             'password' => 'required|min:6',
         ]);
@@ -64,7 +65,7 @@ class EmployeesController extends Controller
         #TODO: does not work perfectly
         $validatedData = $request->validate([
             'original_id' => 'required',
-            'id' => 'required',
+            'id' => 'required|unique:users',
             'name' => 'required',
             'worker_type' => 'required',
             'email' => 'required|email',
@@ -84,26 +85,4 @@ class EmployeesController extends Controller
 
         return view('admin.employees', ['employees' => $employees]);
     }
-
-    //login employees
-    public function loginShow(): View
-    {
-        return view('authentication.login');
-    }
-
-    public function customLogin(Request $request)
-    {
-        $request->validate([
-            'id' => 'required',
-            'password' => 'required',
-        ]);
-        $credentials = $request->only('id', 'password');
-        if (Auth::attempt($credentials)) {
-            return redirect()->intended('dashboard')
-                ->withSuccess('Signed in');
-        }
-        return redirect("login")->withSuccess('Login details are not valid');
-    }
-
-
 }
