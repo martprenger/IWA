@@ -78,15 +78,7 @@ class EmployeesController extends Controller
         return Redirect::route('medewerkers')->with('success', 'Employee edited successfully.');
     }
 
-    public function employeesSettingShow()
-    {
-        //get list of employees
-        $employees = User::all();
-
-        return view('admin.employees', ['employees' => $employees]);
-    }
-
-    public function employeesSettingShowPost(Request $request)
+    public function employeesSettingShow(Request $request)
     {
         $post = $request->all();
 

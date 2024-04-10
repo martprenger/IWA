@@ -46,7 +46,7 @@ Route::get('/logsmedewerkers', [LogsMedewerkersController::class, 'show']) ->nam
  */
 
 Route::get('/medewerkers', [EmployeesController::class, 'employeesSettingShow']) ->name('medewerkers')->middleware('role:admin');
-Route::post('/medewerkers', [EmployeesController::class, 'employeesSettingShowPost']) ->name('medewerkers')->middleware('role:admin');
+Route::post('/medewerkers', [EmployeesController::class, 'employeesSettingShow']) ->name('medewerkers')->middleware('role:admin');
 
 Route::get('/medewerkerstoevoegen', [EmployeesController::class, 'addEmployeeShow']) ->name('addemployees')->middleware('role:admin');
 Route::get('/medewerkerwijzigen/{id}', [EmployeesController::class, 'editEmployeeShow']) ->name('editemployees')->middleware('role:admin');
