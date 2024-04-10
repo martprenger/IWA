@@ -85,4 +85,37 @@ class EmployeesController extends Controller
 
         return view('admin.employees', ['employees' => $employees]);
     }
+
+    public function employeesSettingShowPost(Request $request)
+    {
+        $post = $request->all();
+
+        // Start a query
+        $query = User::query();
+
+        // If an ID is provided, filter by ID
+        if (!empty($post['id'])) {
+            $query->where('id', 'like', '%' . $post['id'] . '%');
+        }
+
+        // If a name is provided, filter by name
+        if (!empty($post['name'])) {
+            $query->where('name', 'like', '%' . $post['name'] . '%');
+        }
+
+        // If an email is provided, filter by email
+        if (!empty($post['email'])) {
+            $query->where('email', 'like', '%' . $post['email'] . '%');
+        }
+
+        // If a worker type is provided, filter by worker type
+        if (!empty($post['worker_type'])) {
+            $query->where('worker_type', $post['worker_type']);
+        }
+
+        // Get the result
+        $employees = $query->get();
+
+        return view('admin.employees', ['employees' => $employees]);
+    }
 }
