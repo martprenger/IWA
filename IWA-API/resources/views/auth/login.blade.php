@@ -1,6 +1,8 @@
 @extends('layouts.page')
 
 @section('body')
+    @parent
+    <link href="{{ asset('css/login.css') }}" rel="stylesheet">
 
     <div>
         <div class="container-image">
@@ -21,8 +23,8 @@
 
 
                 <div class="mb-3">
-                    <label for="exampleInputPassword1" class="form-label">Password</label>
-                    <input type="password" placeholder="Password" id="password"
+                    <label for="exampleInputPassword1" class="form-label">Wachtwoord</label>
+                    <input type="password" placeholder="Wachtwoord" id="password"
                            class="form-control @error('password') is-invalid @enderror" name="password" required
                            autocomplete="current-password">
                     @error('password')
@@ -36,7 +38,7 @@
                            id="remember" {{ old('remember') ? 'checked' : '' }}>
 
                     <label class="form-check-label" for="remember">
-                        {{ __('Remember Me') }}
+                        {{ __('Onthoud mij') }}
                     </label>
                 </div>
 
@@ -44,7 +46,7 @@
                 <div>
                     @if (Route::has('password.request'))
                         <a class="btn btn-link" href="{{ route('password.request') }}">
-                            {{ __('Forgot Your Password?') }}
+                            {{ __('Wachtwoord vergeten?') }}
                         </a>
                     @endif
                 </div>
