@@ -11,6 +11,7 @@ class DashboardController extends Controller
     {
         $this->middleware('auth');
         $this->middleware('navbar');
+        $this->middleware('dashboard');
     }
 
     public function show(): View
