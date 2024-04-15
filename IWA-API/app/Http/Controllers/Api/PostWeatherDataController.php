@@ -14,16 +14,15 @@ class PostWeatherDataController extends Controller
     {
         try {
             $jsonData = $request->input('WEATHERDATA');
-            Log::info('Received JSON data: ' . json_encode($jsonData));
+
+            $stationID = null;
 
             // Iterate over each weather data record
             foreach ($jsonData as $data) {
-                // Log the current data being processed
-                Log::info('Processing data: ' . json_encode($data));
                 
                 // Check for missing data
                 $stationID = $data['STN'];
-                Log::info('Station id: ' . $stationID);
+
                 $data = $this->insertLostData($stationID, $data);
 
                 // Create a new WeatherData model instance
@@ -50,13 +49,12 @@ class PostWeatherDataController extends Controller
                 $weatherData->save();
 
                 // Log successful insertion
-                Log::info('Weather data inserted successfully: ' . json_encode($data));
             }
 
             return response()->json(['message' => 'Data inserted successfully'], 201);
         } catch (\Exception $e) {
             // Log error
-            Log::error('Error processing weather data: ' . $e->getMessage());
+            Log::error('Error processing weather data: ' . $e->getMessage() . "\n" . $e->getTraceAsString());
 
             return response()->json(['message' => 'An error occurred while processing the data: ' . $e->getMessage()], 500);
         }
@@ -66,9 +64,8 @@ class PostWeatherDataController extends Controller
         $newData = array();
 
         foreach ($data as $key=>$value) {
-            if ($value === "None" || $this->checkForValidData($stationID, $key, $value)) { // TODO: This should create an error for the administrive employee
+            if ($value == "None" || !$this->checkForValidData($stationID, $key, $value)) { // TODO: This should create an error for the administrive employee
                 $newData[$key] = $this->createLostData($stationID, $key);
-                Log::info("Inserted new or edited data at key: " . $key . ", With data: " . $newData[$key]);
             } else {
                 $newData[$key] = $value;
             }
@@ -78,12 +75,21 @@ class PostWeatherDataController extends Controller
 
     public function createLostData($stationID, $key) {
         $lastEntries = WeatherData::where("STN", $stationID)->orderBy("created_at", "desc")->take(5)->get();
+        if ($lastEntries->count() === 0) { // TODO: Raise error for immediate faulty reading within first 5 operations of the weather station.
+            return 0;
+        }
         $newValue = $lastEntries->avg($key);
         return $newValue;
     }
 
     public function checkForValidData($stationID, $key, $value) {
-        $lastEntrie = WeatherData::where("STN", $stationID)->orderBy("created_at", "desc")->take(1)->get();
+        if (!WeatherData::isNumericType($key)) {
+            return true;
+        }
+        $lastEntrie = WeatherData::where("STN", $stationID)->orderBy("created_at", "desc")->first();
+        if ($lastEntrie === null) {
+            return true;
+        }
         return ($value < $lastEntrie[$key] * 1.20) && ($value > $lastEntrie[$key] * 0.80);
     }  
 }
