@@ -2,7 +2,7 @@
 
 use App\Http\Controllers\AddMachineController;
 use App\Http\Controllers\AdminController;
-use App\Http\Controllers\ControllerAPIManagement;
+use App\Http\Controllers\APIController;
 use App\Http\Controllers\EmployeesController;
 use App\Http\Controllers\EmployeesSettingsController;
 use App\Http\Controllers\InvoicesController;
@@ -77,7 +77,7 @@ Route::get('/machinetoevoegen', [AddMachineController::class, 'show'])-> name('m
  */
 
 Route::get('/facaturen', [InvoicesController::class, 'show']) ->name('Invoices');
-Route::get('/APIManagement', [ControllerAPIManagement::class, 'show']) ->name('APIManagement');
+Route::get('/APIManagement', [APIController::class, 'show']) ->name('APIManagement');
 
 
 
