@@ -20,12 +20,17 @@ class PostWeatherDataController extends Controller
             foreach ($jsonData as $data) {
                 // Log the current data being processed
                 Log::info('Processing data: ' . json_encode($data));
+                
+                // Check for missing data
+                $stationID = $data['STN'];
+                Log::info('Station id: ' . $stationID);
+                $data = $this->insertLostData($stationID, $data);
 
                 // Create a new WeatherData model instance
                 $weatherData = new WeatherData();
 
                 // Map JSON fields to database columns
-                $weatherData->STN = $data['STN'];
+                $weatherData->STN = $stationID;
                 $weatherData->DATE = $data['DATE'];
                 $weatherData->TIME = $data['TIME'];
                 $weatherData->TEMP = $data['TEMP'];
@@ -55,6 +60,31 @@ class PostWeatherDataController extends Controller
             return response()->json(['message' => 'An error occurred while processing the data: ' . $e->getMessage()], 500);
         }
     }
+
+    public function insertLostData($stationID, $data) {
+        $newData = array();
+
+        foreach ($data as $key=>$value) {
+            if ($value === "None" || $this->checkForValidData($stationID, $key, $value)) { // TODO: This should create an error for the administrive employee
+                $newData[$key] = $this->createLostData($stationID, $key);
+                Log::info("Inserted new or edited data at key: " . $key . ", With data: " . $newData[$key]);
+            } else {
+                $newData[$key] = $value;
+            }
+        }
+        return $newData;
+    }
+
+    public function createLostData($stationID, $key) {
+        $lastEntries = WeatherData::where("STN", $stationID)->orderBy("created_at", "desc")->take(5)->get();
+        $newValue = $lastEntries->avg($key);
+        return $newValue;
+    }
+
+    public function checkForValidData($stationID, $key, $value) {
+        $lastEntrie = WeatherData::where("STN", $stationID)->orderBy("created_at", "desc")->take(1)->get();
+        return ($value < $lastEntrie[$key] * 1.20) && ($value > $lastEntrie[$key] * 0.80);
+    }  
 }
 
 
