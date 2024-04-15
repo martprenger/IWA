@@ -17,7 +17,7 @@ class APIController extends Controller
     public function show()
     {
         //get list of employees
-        $keys = APIkeys::all();
+        $keys = APIkeys::with('klant')->get();
 
         return view('administration.APIManagement', ['keys' => $keys]);
     }

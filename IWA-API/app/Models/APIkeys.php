@@ -9,22 +9,18 @@ class APIkeys extends Model
 {
     use HasFactory;
 
-
-    public function klanten()
-    {
-        return $this->hasMany(related: Klant::class);
-    }
-
     protected $table = 'APIkeys';
 
     protected $fillable = [
         'id',
         'klantenID',
-        'startdatum',
         'APIkey',
-        'actief'
+        'actief',
+        'created_at',
     ];
 
-
-
+    public function klant()
+    {
+        return $this->belongsTo(Klant::class, 'klantenID');
+    }
 }
