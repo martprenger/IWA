@@ -29,6 +29,7 @@ class PostWeatherDataController extends Controller
                 // Create a new WeatherData model instance
                 $weatherData = new WeatherData();
 
+
                 // Map JSON fields to database columns
                 $weatherData->STN = $stationID;
                 $weatherData->DATE = $data['DATE'];
