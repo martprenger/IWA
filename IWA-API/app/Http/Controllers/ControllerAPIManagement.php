@@ -4,11 +4,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-class InvoicesController extends Controller
+class ControllerAPIManagement extends Controller
 {
     public function show()
     {
-
-        return view('administration.facaturen');
+        return view('administration.APIManagement');
     }
 }
