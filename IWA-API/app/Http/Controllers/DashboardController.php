@@ -7,6 +7,13 @@ use Illuminate\View\View;
 
 class DashboardController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+        $this->middleware('navbar');
+        $this->middleware('dashboard');
+    }
+
     public function show(): View
     {
         return view('dashboard');
