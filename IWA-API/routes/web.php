@@ -78,8 +78,15 @@ Route::get('/machinetoevoegen', [AddMachineController::class, 'show'])-> name('m
  */
 
 Route::get('/contracten', [ContractController::class, 'show']) ->name('contracten');
+Route::post('/contracten', [ContractController::class, 'show']) ->name('contracten');
+Route::get('/addcontract', [ContractController::class, 'addContractShow']) ->name('addcontract');
+Route::post('/addcontract', [ContractController::class, 'addContract']) ->name('addcontracts');
+Route::get('/editcontract', [ContractController::class, 'editContractShow']) ->name('editcontract');
+Route::post('/editcontract', [ContractController::class, 'editContract']) ->name('editcontracts');
+Route::post('/deletecontract', [ContractController::class, 'deleteContract']) ->name('deletecontract');
 
 
+Route::get('/stationlocation', [ContractController::class, 'locationstations']);
 /*
  * routes voor de API keys
  */

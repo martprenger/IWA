@@ -10,31 +10,29 @@
                 <tr>
                     <th>ID</th>
                     <th>klant naam</th>
-                    <th>API key</th>
-                    <th>Status</th>
-                    <th>Start datum</th>
-                    <th><a href="{{ route('addAPI') }}" class="btn btn-success">Add API key</a></th>
+                    <th>Aantal stations</th>
+                    <th>Aantal permisions</th>
+                    <th><a href="{{ route('addcontract') }}" class="btn btn-success">make new contract</a></th>
                 </tr>
                 </thead>
 
                 <tbody>
-                @foreach($keys as $key)
+                @foreach($contracten as $contract)
                     <tr>
-                        <td>{{ $key->id }}</td>
-                        <td>{{ $key->klant->klantnaam }}</td>
-                        <td>{{ $key->APIkey }}</td>
-                        <td>{{ $key->actief == 0 ? 'Inactive' : 'Active' }}</td>
-                        <td>{{ $key->created_at}}</td>
+                        <td>{{ $contract->id }}</td>
+                        <td>{{ $contract->klant->klantnaam }}</td>
+                        <td>{{ optional($contract->stations)->count() ?? 0 }}</td>
+                        <td>{{ optional($contract->permisions)->count() ?? 0 }}</td>
                         <td>
                             <!--TODO: make styling not use -15 px, i know this is bad but i hate front end-->
                             <div
                                 style="display: flex; align-items: center; margin-bottom: -20px; margin-top: -20px;">
-                                <a href="{{ route('editAPIs', ['id' => $key->id]) }}"
+                                <a href="{{ route('editcontract', ['id' => $contract->id]) }}"
                                    class="btn btn-primary" style="margin-right: 5px;">Edit</a>
-                                <form method="POST" action="{{ route('deleteAPI') }}"
+                                <form method="POST" action="{{ route('deletecontract') }}"
                                       style="margin-top: 4px; margin-left: -15px">
                                     @csrf
-                                    <input type="hidden" name="id" value="{{ $key->id }}">
+                                    <input type="hidden" name="id" value="{{ $contract->id }}">
                                     <button type="submit" class="btn btn-danger">Delete</button>
                                 </form>
                             </div>
@@ -56,20 +54,10 @@
                     <input type="text" name="klantenNaam" class="form-control" placeholder="Klant naam">
                 </div>
                 <div class="col-md-2">
-                    <input type="text" name="APIkey" class="form-control" placeholder="APIkey">
+                    <input type="text" name="aantalstations" class="form-control" placeholder="Aantal stations">
                 </div>
                 <div class="col-md-2">
-                    <select name="status" class="form-control">
-                        <option value="">status</option>
-                        <option value="1">active</option>
-                        <option value="0">inactive</option>
-                    </select>
-                </div>
-                <div class="col-md-2">
-                    <input type="date" name="start_date" class="form-control" placeholder="Start Date">
-                </div>
-                <div class="col-md-2">
-                    <input type="date" name="end_date" class="form-control" placeholder="End Date">
+                    <input type="text" name="aantalpermisions" class="form-control" placeholder="Aantal permisions">
                 </div>
                 <div class="col-md-2">
                     <button type="submit" class="btn btn-primary">Filter</button>

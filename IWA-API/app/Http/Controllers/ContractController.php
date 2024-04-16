@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Contracten;
+use App\Models\PermissionContract;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 
@@ -27,23 +28,6 @@ class ContractController extends Controller
             $query->where('id', 'like', '%' . $post['id'] . '%');
         }
 
-
-        if (!empty($post['APIkey'])) {
-            $query->where('APIkey', 'like', '%' . $post['APIkey'] . '%');
-        }
-
-        if (!empty($post['status'])) {
-            $query->where('actief', 'like', '%' . $post['status'] . '%');
-        }
-
-        if (!empty($post['start_date'])) {
-            $query->whereDate('created_at', '>', $post['start_date']);
-        }
-
-        if (!empty($post['end_date'])) {
-            $query->whereDate('created_at', '<', $post['end_date']);
-        }
-
         $contracten = $query->get();
 
         return view('administration.contract', ['contracten' => $contracten]);
@@ -66,14 +50,23 @@ class ContractController extends Controller
     }
     public function addContract(Request $request){
         $validatedData = $request->validate([
-            'klantenID' => 'required',
-            'actief' => 'required|boolean',
+            'customer_id' => 'required',
+            'expiration_date' => 'required',
+            'permissionsA' => 'array',
         ]);
 
         $contract = new Contracten();
         $contract->fill($validatedData);
         $contract->save();
 
+        $contractId = $contract->id;
+
+        foreach ($validatedData['permissionsA'] as $permission) {
+            $contractPermission = new PermissionContract();
+            $contractPermission->contract_id = $contractId;
+            $contractPermission->permissions = $permission;
+            $contractPermission->save();
+        }
         #TODO: make notification work and make redirect better
         return Redirect::route('contracten')->with('success', 'API added successfully.');
     }
@@ -100,5 +93,35 @@ class ContractController extends Controller
         $contract->fill($validatedData);
         $contract->save();
         return Redirect::route('contracten')->with('success', 'Employee edited successfully.');
+    }
+
+    public function locationstations(){
+        $initialMarkers = [
+            [
+                'position' => [
+                    'lat' => 28.625485,
+                    'lng' => 79.821091
+                ],
+                'label' => [ 'color' => 'white', 'text' => 'P1' ],
+                'draggable' => true
+            ],
+            [
+                'position' => [
+                    'lat' => 28.625293,
+                    'lng' => 79.817926
+                ],
+                'label' => [ 'color' => 'white', 'text' => 'P2' ],
+                'draggable' => false
+            ],
+            [
+                'position' => [
+                    'lat' => 28.625182,
+                    'lng' => 79.81464
+                ],
+                'label' => [ 'color' => 'white', 'text' => 'P3' ],
+                'draggable' => true
+            ]
+        ];
+        return view('administration.locationStation', ['initialMarkers' => $initialMarkers]);
     }
 }
