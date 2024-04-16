@@ -24,6 +24,9 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::post('/postWeatherData', [PostWeatherDataController::class, "processWeatherData"]);
 
 
-Route::get('/weather-data/{id}', [WeatherDataController::class, 'show']);
+Route::get('/contracten/{id}/all', [WeatherDataController::class, 'receiveRequest'])->where('id', '[0-9]+'); // Get all data associated with the contract
+Route::get('/contracten/{id}/{station}', [WeatherDataController::class, 'receiveRequest'])->where(['id' => '[0-9]+', 'station' => '[0-9]+']); // Get all data from specified station
+
+
 
 

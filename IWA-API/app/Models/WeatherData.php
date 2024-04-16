@@ -18,4 +18,11 @@ class WeatherData extends Model
         ];
         return in_array($value, $isNumeric);
     }
+
+    public static function isAccesible($value) {
+        $types = [
+            'DATE', 'TIME', 'TEMP', 'DEWP', 'STP', 'SLP', 'VISIB', 'WDSP', 'PRCP', 'SNDP', 'FRSHTT', 'CLDC', 'WNDDIR'
+        ];
+        return in_array($value, $types);
+    }
 }
