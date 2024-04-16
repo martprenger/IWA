@@ -1,8 +1,6 @@
 @extends('layouts.page')
 
 @section('body')
-    @parent
-    <link href="{{ asset('css/login.css') }}" rel="stylesheet">
 
     <div>
         <div class="container-image">
