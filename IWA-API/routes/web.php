@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\testdbController;
-use App\Http\Controllers\MachineController;
+use App\Http\Controllers\StationController;
 use App\Http\Controllers\AddStationController;
 
 /*
@@ -65,8 +65,8 @@ Route::post('/medewerkerwijzigen', [EmployeesController::class, 'editEmployee'])
  * routes voor de de algemene mederwerks
  */
 
-Route::get('/machinepage', [MachineController::class, 'show'])-> name('machinepage');
-Route::get('/machinetoevoegen', [AddMachineController::class, 'show'])-> name('machinetoevoegen');
+Route::get('/stationpage', [StationController::class, 'show'])-> name('stations');
+Route::get('/addstation', [AddMachineController::class, 'show'])-> name('addstation');
 
 
 /*
@@ -95,7 +95,7 @@ Route::post('/deleteAPI', [APIController::class, 'deleteAPI']) ->name('deleteAPI
 
 
 
-Route::get('/machinePage', [MachineController::class, 'show']);
+Route::get('/machinePage', [StationController::class, 'show']);
 Route::get('/add-station', [AddStationController::class, 'show']);
 Route::post('/add-station', [AddStationController::class, 'handleStationData'])->name('add-station');
 
