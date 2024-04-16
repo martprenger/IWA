@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\testdbController;
-use App\Http\Controllers\MachineController;
+use App\Http\Controllers\StationController;
 use App\Http\Controllers\AddStationController;
 
 /*
@@ -65,8 +65,13 @@ Route::post('/medewerkerwijzigen', [EmployeesController::class, 'editEmployee'])
  * routes voor de de algemene mederwerks
  */
 
-Route::get('/machinepage', [MachineController::class, 'show'])-> name('machinepage');
-Route::get('/machinetoevoegen', [AddMachineController::class, 'show'])-> name('machinetoevoegen');
+Route::get('/stationpage', [StationController::class, 'show'])-> name('stations');
+Route::post('/stationpage', [StationController::class, 'show'])-> name('station');
+Route::get('/addstation', [StationController::class, 'addStationShow'])-> name('addstations');
+Route::post('/addstation', [StationController::class, 'addStation'])-> name('addstation');
+Route::get('/editstation/{name}', [StationController::class, 'editStationShow'])->name('editstations');
+Route::post('/editstation', [StationController::class, 'editStation'])-> name('editstation');
+Route::post('/deletestation', [StationController::class, 'deleteStation'])-> name('deletestation');
 
 
 /*
@@ -102,7 +107,7 @@ Route::post('/deleteAPI', [APIController::class, 'deleteAPI']) ->name('deleteAPI
 
 
 
-Route::get('/machinePage', [MachineController::class, 'show']);
+Route::get('/machinePage', [StationController::class, 'show']);
 Route::get('/add-station', [AddStationController::class, 'show']);
 Route::post('/add-station', [AddStationController::class, 'handleStationData'])->name('add-station');
 
