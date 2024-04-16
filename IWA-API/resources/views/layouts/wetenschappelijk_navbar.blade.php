@@ -1,7 +1,7 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <!-- Left Side Of Navbar -->
-    <div class="navbar-brand">
-        <img src="{{ asset('images/LogoIWA.jpg') }}" alt="Logo" width="90" height="72" class="d-inline-block align-text-top">
+    <div class="navbar-brand" style="mix-blend-mode: multiply; margin-left: 20px">
+        <a class="navbar-brand mr-auto" href="{{route('dashboard')}}"><img src="{{ asset('images/LogoIWA.jpg') }}" alt="Logo" width="90" height="72" class="d-inline-block align-text-top"></a>
     </div>
 
     <!-- Center Side Of Navbar -->
