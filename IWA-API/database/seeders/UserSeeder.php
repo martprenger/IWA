@@ -19,9 +19,10 @@ class UserSeeder extends Seeder
         // Using Eloquent Model
         User::create([
             'id' => 1,
-            'name' => 'jankees pieter',
-            'email' => 'jankees@gmail.com',
-            'password' => Hash::make('password'), // Use Hash::make to hash the password
+            'name' => 'admin',
+            'email' => 'admin@gmail.com',
+            'worker_type' => 'admin',
+            'password' => Hash::make('testtest'), // Use Hash::make to hash the password
         ]);
 
     }

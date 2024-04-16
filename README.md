@@ -22,6 +22,7 @@ To load all IWA data into database:
  - php artisan db:seed --class=stationSeeder
  - php artisan db:seed --class=geolocationSeeder
  - php artisan db:seed --class=nearestlocationSeeder
+ - php artisan db:seed --class=UserSeeder
 
 To start the server:
  - php artisan serve

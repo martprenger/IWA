@@ -12,7 +12,6 @@
                     <th>Employee Name</th>
                     <th>Employee Email</th>
                     <th>Employee Role</th>
-                    <th>Employee Status</th>
                     <th><a href="{{ route('addemployees') }}" class="btn btn-success">Add Employee</a></th>
                 </tr>
                 </thead>
@@ -23,8 +22,7 @@
                         <td>{{ $employee->id }}</td>
                         <td>{{ $employee->name }}</td>
                         <td>{{ $employee->email }}</td>
-                        <td>{{ $employee->role }}</td>
-                        <td>{{ $employee->status }}</td>
+                        <td>{{ $employee->worker_type }}</td>
                         <td>
                             <!--TODO: make styling not use -15 px, i know this is bad but i hate front end-->
                             <div
@@ -45,4 +43,32 @@
             </table>
         </div>
     </div>
+    <div class="container">
+        <form method="POST" action="{{ route('medewerkers') }}">
+            @csrf
+            <div class="row">
+                <div class="col-md-2">
+                    <input type="text" name="id" class="form-control" placeholder="Filter by ID">
+                </div>
+                <div class="col-md-2">
+                    <input type="text" name="name" class="form-control" placeholder="Filter by Name">
+                </div>
+                <div class="col-md-2">
+                    <input type="text" name="email" class="form-control" placeholder="Filter by Email">
+                </div>
+                <div class="col-md-2">
+                    <select name="worker_type" class="form-control">
+                        <option value="">Filter by Role</option>
+                        <option value="admin">Admin</option>
+                        <option value="wetenschappelijk">Wetenschappelijk</option>
+                        <option value="administratief">Administratief</option>
+                    </select>
+                </div>
+                <div class="col-md-2">
+                    <button type="submit" class="btn btn-primary">Filter</button>
+                </div>
+            </div>
+        </form>
+    </div>
+
 
