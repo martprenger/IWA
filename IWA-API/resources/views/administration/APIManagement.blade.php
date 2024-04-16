@@ -11,7 +11,7 @@
                     <th>ID</th>
                     <th>klant naam</th>
                     <th>API key</th>
-                    <th>Actief</th>
+                    <th>Status</th>
                     <th>Start datum</th>
                     <th><a href="{{ route('addAPI') }}" class="btn btn-success">Add API key</a></th>
                 </tr>
@@ -23,13 +23,13 @@
                         <td>{{ $key->id }}</td>
                         <td>{{ $key->klant->klantnaam }}</td>
                         <td>{{ $key->APIkey }}</td>
-                        <td>{{ $key->actief }}</td>
+                        <td>{{ $key->actief == 0 ? 'Inactive' : 'Active' }}</td>
                         <td>{{ $key->created_at}}</td>
                         <td>
                             <!--TODO: make styling not use -15 px, i know this is bad but i hate front end-->
                             <div
                                 style="display: flex; align-items: center; margin-bottom: -20px; margin-top: -20px;">
-                                <a href="{{ route('editAPI', ['id' => $key->id]) }}"
+                                <a href="{{ route('editAPIs', ['id' => $key->id]) }}"
                                    class="btn btn-primary" style="margin-right: 5px;">Edit</a>
                                 <form method="POST" action="{{ route('deleteAPI') }}"
                                       style="margin-top: 4px; margin-left: -15px">
@@ -46,7 +46,7 @@
         </div>
     </div>
     <div class="container">
-        <form method="POST" action="{{ route('APIManagement') }}">
+        <form method="POST" action="{{ route('APIManagements') }}">
             @csrf
             <div class="row">
                 <div class="col-md-2">
@@ -59,10 +59,10 @@
                     <input type="text" name="APIkey" class="form-control" placeholder="APIkey">
                 </div>
                 <div class="col-md-2">
-                    <select name="worker_type" class="form-control">
-                        <option value="">actief</option>
-                        <option value="true">true</option>
-                        <option value="false">false</option>
+                    <select name="status" class="form-control">
+                        <option value="">status</option>
+                        <option value="1">active</option>
+                        <option value="0">inactive</option>
                     </select>
                 </div>
                 <div class="col-md-2">

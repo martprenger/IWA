@@ -76,9 +76,12 @@ Route::get('/facaturen', [InvoicesController::class, 'show']) ->name('Invoices')
 
 
 Route::get('/APIManagement', [APIController::class, 'show']) ->name('APIManagement');
-Route::get('/addAPI', [APIController::class, 'show']) ->name('addAPI');
-Route::get('/editAPI', [APIController::class, 'show']) ->name('editAPI');
-Route::get('/deleteAPI', [APIController::class, 'show']) ->name('deleteAPI');
+Route::post('/APIManagement', [APIController::class, 'show']) ->name('APIManagements');
+Route::get('/addAPI', [APIController::class, 'addAPIkeyShow']) ->name('addAPI');
+Route::post('/addAPI', [APIController::class, 'addAPIkey']) ->name('addAPI');
+Route::get('/editAPI/{id}', [APIController::class, 'editAPIShow']) ->name('editAPIs');
+Route::post('/editAPI', [APIController::class, 'editAPI']) ->name('editAPI');
+Route::post('/deleteAPI', [APIController::class, 'deleteAPI']) ->name('deleteAPI');
 
 
 

@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('APIkeys', function (Blueprint $table) {
             $table->id();
             $table->integer('klantenID');
-            $table->string('APIkey');
+            $table->string('APIkey')->unique();
             $table->boolean('actief')->default(true);
             $table->timestamps();
         });

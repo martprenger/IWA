@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\APIkeys;
 use App\Models\klant;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Str;
 
 class APIController extends Controller
 {
@@ -14,33 +16,105 @@ class APIController extends Controller
         $this->middleware('navbar');
     }
 
-    public function show()
+    public function show(Request $request)
     {
-        //get list of employees
-        $keys = APIkeys::with('klant')->get();
+        $post = $request->all();
+
+        // Start a query
+        $query = APIkeys::query();
+
+        // If an ID is provided, filter by ID
+        if (!empty($post['id'])) {
+            $query->where('id', 'like', '%' . $post['id'] . '%');
+        }
+
+
+        if (!empty($post['APIkey'])) {
+            $query->where('APIkey', 'like', '%' . $post['APIkey'] . '%');
+        }
+
+        if (!empty($post['status'])) {
+            $query->where('actief', 'like', '%' . $post['status'] . '%');
+        }
+
+        if (!empty($post['start_date'])) {
+            $query->whereDate('created_at', '>', $post['start_date']);
+        }
+
+        if (!empty($post['end_date'])) {
+            $query->whereDate('created_at', '<', $post['end_date']);
+        }
+
+        $keys = $query->get();
 
         return view('administration.APIManagement', ['keys' => $keys]);
     }
 
+    public function deleteAPI(Request $request)
+    {
+        $validatedData = $request->validate([
+            'id' => 'required',
+        ]);
 
-    public function apitest(){
-        $apiKeysWithKlanten = APIkeys::with('klanten')->get();
+        $user = APIkeys::find($validatedData['id']);
+        $user->delete();
 
-        // Loop door elke API-key en toon de bijbehorende klanten
-        foreach ($apiKeysWithKlanten as $apiKey) {
-            echo "API-key: " . $apiKey->APIkey . "\n";
-            echo "Klanten: \n";
-            foreach ($apiKey->klanten as $klant) {
-                echo "- " . $klant->klantnaam . "\n";
-            }
+        return Redirect::route('APIManagement')->with('success', 'API deleted successfully.');
+    }
+
+    public function addAPIkeyShow(){
+        return view('administration.addAPIkey');
+    }
+    public function addAPIkey(Request $request){
+        $validatedData = $request->validate([
+            'klantenID' => 'required',
+            'actief' => 'required|boolean',
+        ]);
+
+        do {
+            $apiKey = Str::random(32);
+        } while (APIkeys::where('APIkey', $apiKey)->exists());
+
+        $validatedData['APIkey'] = $apiKey;
+
+        $user = new APIkeys();
+        $user->fill($validatedData);
+        $user->save();
+
+        #TODO: make notification work and make redirect better
+        return Redirect::route('APIManagement')->with('success', 'API added successfully.');
+    }
+
+    public function editAPIShow($id)
+    {
+        $key = APIkeys::find($id);
+        return view('administration.editAPIkey', ['key' => $key]);
+    }
+
+    public function editAPI(Request $request)
+    {
+        $validatedData = $request->validate([
+            'id' => 'required',
+            'klantenID' => 'required',
+            'newKey' => 'required|boolean',
+            'actief' => 'required|boolean',
+
+        ]);
+
+        if ($validatedData['newKey'] == '1') {
+            do {
+                $apiKey = Str::random(32);
+            } while (APIkeys::where('APIkey', $apiKey)->exists());
+
+            $validatedData['APIkey'] = $apiKey;
         }
 
-        // Voorbeeld: Klant ophalen met bijbehorende API-key
-        $klantWithAPI = Klant::with('API')->first();
 
-        // Toon de klantnaam en de bijbehorende API-key
-        echo "Klantnaam: " . $klantWithAPI->klantnaam . "\n";
-        echo "Bijbehorende API-key: " . $klantWithAPI->API->APIkey . "\n";
+        #update existing employee
+        $key = APIkeys::find($validatedData['id']);
+        $key->fill($validatedData);
+        $key->save();
+        return Redirect::route('APIManagement')->with('success', 'Employee edited successfully.');
     }
 
 }

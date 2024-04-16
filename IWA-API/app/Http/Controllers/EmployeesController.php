@@ -62,7 +62,6 @@ class EmployeesController extends Controller
 
     public function editEmployee(Request $request)
     {
-        #TODO: does not work perfectly
         $validatedData = $request->validate([
             'original_id' => 'required',
             'id' => 'required|unique:users',
