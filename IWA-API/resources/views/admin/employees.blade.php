@@ -1,5 +1,5 @@
 @extends('layouts.page')
-@include('layouts.admin_navbar')
+@include($navbar)
 @section('body')
 
     <div class="container">
@@ -48,17 +48,17 @@
             @csrf
             <div class="row">
                 <div class="col-md-2">
-                    <input type="text" name="id" class="form-control" placeholder="Filter by ID">
+                    <input type="text" name="id" class="form-control" placeholder="ID">
                 </div>
                 <div class="col-md-2">
-                    <input type="text" name="name" class="form-control" placeholder="Filter by Name">
+                    <input type="text" name="name" class="form-control" placeholder="Naam">
                 </div>
                 <div class="col-md-2">
-                    <input type="text" name="email" class="form-control" placeholder="Filter by Email">
+                    <input type="text" name="email" class="form-control" placeholder="Email">
                 </div>
                 <div class="col-md-2">
                     <select name="worker_type" class="form-control">
-                        <option value="">Filter by Role</option>
+                        <option value="">Role</option>
                         <option value="admin">Admin</option>
                         <option value="wetenschappelijk">Wetenschappelijk</option>
                         <option value="administratief">Administratief</option>
@@ -70,5 +70,6 @@
             </div>
         </form>
     </div>
+@endsection
 
 

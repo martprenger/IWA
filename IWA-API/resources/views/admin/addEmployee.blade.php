@@ -1,5 +1,5 @@
-@include($navbar)
 @extends('layouts.page')
+@include($navbar)
 @section('body')
 
 

@@ -2,9 +2,10 @@
 
 use App\Http\Controllers\AddMachineController;
 use App\Http\Controllers\AdminController;
-use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\APIController;
+use App\Http\Controllers\ContractController;
 use App\Http\Controllers\EmployeesController;
-use App\Http\Controllers\HomeController;
+use App\Http\Controllers\InvoicesController;
 use App\Http\Controllers\LogsMedewerkersController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -23,6 +24,10 @@ use App\Http\Controllers\AddStationController;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+
+/*
+ * routes voor de login
+ */
 
 Auth::routes();
 
@@ -45,8 +50,8 @@ Route::get('/logsmedewerkers', [LogsMedewerkersController::class, 'show']) ->nam
  * routes voor de medewerkers
  */
 
-Route::get('/medewerkers', [EmployeesController::class, 'employeesSettingShow']) ->name('medewerkers')->middleware('role:admin');
-Route::post('/medewerkers', [EmployeesController::class, 'employeesSettingShow']) ->name('medewerkers')->middleware('role:admin');
+Route::get('/medewerkers', [EmployeesController::class, 'employeesShow']) ->name('medewerkers')->middleware('role:admin');
+Route::post('/medewerkers', [EmployeesController::class, 'employeesShow']) ->name('medewerkers')->middleware('role:admin');
 
 Route::get('/medewerkerstoevoegen', [EmployeesController::class, 'addEmployeeShow']) ->name('addemployees')->middleware('role:admin');
 Route::get('/medewerkerwijzigen/{id}', [EmployeesController::class, 'editEmployeeShow']) ->name('editemployees')->middleware('role:admin');
@@ -68,8 +73,24 @@ Route::get('/machinetoevoegen', [AddMachineController::class, 'show'])-> name('m
  * routes voor de administief mederwerks
  */
 
-Route::get('/facaturen', [InvoicesController::class, 'show']);
-Route::get('/lopendecontracten', [ContractsController::class, 'show']);
+/*
+ * routes voor de facturen
+ */
+
+Route::get('/contracten', [ContractController::class, 'show']) ->name('contracten');
+
+
+/*
+ * routes voor de API keys
+ */
+
+Route::get('/APIManagement', [APIController::class, 'show']) ->name('APIManagement');
+Route::post('/APIManagement', [APIController::class, 'show']) ->name('APIManagements');
+Route::get('/addAPI', [APIController::class, 'addAPIkeyShow']) ->name('addAPI');
+Route::post('/addAPI', [APIController::class, 'addAPIkey']) ->name('addAPI');
+Route::get('/editAPI/{id}', [APIController::class, 'editAPIShow']) ->name('editAPIs');
+Route::post('/editAPI', [APIController::class, 'editAPI']) ->name('editAPI');
+Route::post('/deleteAPI', [APIController::class, 'deleteAPI']) ->name('deleteAPI');
 
 
 

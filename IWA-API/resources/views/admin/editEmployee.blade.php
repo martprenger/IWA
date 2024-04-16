@@ -1,5 +1,5 @@
-@include($navbar)
 @extends('layouts.page')
+@include($navbar)
 @section('body')
 
 {{--edit emplyee page--}}
@@ -49,3 +49,4 @@
         </form>
     </div>
 </div>
+@endsection

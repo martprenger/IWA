@@ -62,7 +62,6 @@ class EmployeesController extends Controller
 
     public function editEmployee(Request $request)
     {
-        #TODO: does not work perfectly
         $validatedData = $request->validate([
             'original_id' => 'required',
             'id' => 'required|unique:users',
@@ -78,7 +77,7 @@ class EmployeesController extends Controller
         return Redirect::route('medewerkers')->with('success', 'Employee edited successfully.');
     }
 
-    public function employeesSettingShow(Request $request)
+    public function employeesShow(Request $request)
     {
         $post = $request->all();
 
