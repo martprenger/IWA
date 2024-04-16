@@ -66,7 +66,12 @@ Route::post('/medewerkerwijzigen', [EmployeesController::class, 'editEmployee'])
  */
 
 Route::get('/stationpage', [StationController::class, 'show'])-> name('stations');
-Route::get('/addstation', [AddMachineController::class, 'show'])-> name('addstation');
+Route::post('/stationpage', [StationController::class, 'show'])-> name('station');
+Route::get('/addstation', [StationController::class, 'addStationShow'])-> name('addstations');
+Route::post('/addstation', [StationController::class, 'addStation'])-> name('addstation');
+Route::get('/editstation/{name}', [StationController::class, 'editStationShow'])->name('editstations');
+Route::post('/editstation', [StationController::class, 'editStation'])-> name('editstation');
+Route::post('/deletestation', [StationController::class, 'deleteStation'])-> name('deletestation');
 
 
 /*
