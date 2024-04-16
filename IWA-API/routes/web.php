@@ -3,6 +3,7 @@
 use App\Http\Controllers\AddMachineController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\APIController;
+use App\Http\Controllers\ContractController;
 use App\Http\Controllers\EmployeesController;
 use App\Http\Controllers\InvoicesController;
 use App\Http\Controllers\LogsMedewerkersController;
@@ -72,8 +73,16 @@ Route::get('/machinetoevoegen', [AddMachineController::class, 'show'])-> name('m
  * routes voor de administief mederwerks
  */
 
-Route::get('/facaturen', [InvoicesController::class, 'show']) ->name('Invoices');
+/*
+ * routes voor de facturen
+ */
 
+Route::get('/contracten', [ContractController::class, 'show']) ->name('contracten');
+
+
+/*
+ * routes voor de API keys
+ */
 
 Route::get('/APIManagement', [APIController::class, 'show']) ->name('APIManagement');
 Route::post('/APIManagement', [APIController::class, 'show']) ->name('APIManagements');
