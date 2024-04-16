@@ -97,13 +97,6 @@ Route::get('/editAPI/{id}', [APIController::class, 'editAPIShow']) ->name('editA
 Route::post('/editAPI', [APIController::class, 'editAPI']) ->name('editAPI');
 Route::post('/deleteAPI', [APIController::class, 'deleteAPI']) ->name('deleteAPI');
 
-
-
-
-Route::get('/machinePage', [StationController::class, 'show']);
-Route::get('/add-station', [AddStationController::class, 'show']);
-Route::post('/add-station', [AddStationController::class, 'handleStationData'])->name('add-station');
-
 Route::get('/testdb', [testdbController::class, 'index']);
 
 
