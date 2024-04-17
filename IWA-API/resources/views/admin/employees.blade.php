@@ -4,7 +4,7 @@
 
     <div class="container">
         <div class="col-md-12">
-            <h3>Employees</h3>
+            <!--<h3>Employees</h3>-->
             <table class="table table-striped">
                 <thead>
                 <tr>
