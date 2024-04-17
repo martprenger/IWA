@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 
 class CreateWeatherStationTables extends Migration
@@ -19,12 +20,35 @@ class CreateWeatherStationTables extends Migration
             $table->string('country', 45);
         });
 
-        // Create station table
         Schema::create('station', function (Blueprint $table) {
             $table->string('name', 10)->primary();
             $table->float('longitude');
             $table->float('latitude');
             $table->float('elevation');
+            $table->point('location');
+        });
+
+        // Create triggers to automatically update 'location' column
+        DB::statement('
+            CREATE TRIGGER station_before_insert BEFORE INSERT ON station FOR EACH ROW
+            BEGIN
+                IF NEW.location IS NULL THEN
+                    SET NEW.location = POINT(NEW.longitude, NEW.latitude);
+                END IF;
+            END
+        ');
+
+        DB::statement('
+            CREATE TRIGGER station_before_update BEFORE UPDATE ON station FOR EACH ROW
+            BEGIN
+                IF NEW.location IS NULL THEN
+                    SET NEW.location = POINT(NEW.longitude, NEW.latitude);
+                END IF;
+            END
+        ');
+
+        Schema::table('station', function (Blueprint $table) {
+            $table->spatialIndex('location');
         });
 
         // Create geolocation table

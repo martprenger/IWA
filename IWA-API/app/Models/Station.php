@@ -15,6 +15,7 @@ class Station extends Model
         'name',
         'elevation',
         'longitude',
-        'latitude'
+        'latitude',
+        'location'
     ];
 }

@@ -26,7 +26,7 @@ class Contracten extends Model
     {
         return $this->hasMany(ContractStation::class, 'contract_id');
     }
-    public function permisions()
+    public function permissions()
     {
         return $this->hasMany(PermissionContract::class, 'contract_id');
     }

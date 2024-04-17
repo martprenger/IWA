@@ -3,13 +3,15 @@
 namespace App\Http\Controllers;
 
 use App\Models\Contracten;
+use App\Models\ContractStation;
 use App\Models\PermissionContract;
+use App\Models\Station;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redirect;
 
 class ContractController extends Controller
 {
-
     public function __construct()
     {
         $this->middleware('auth');
@@ -45,10 +47,13 @@ class ContractController extends Controller
         return Redirect::route('contracten')->with('success', 'API deleted successfully.');
     }
 
-    public function addContractShow(){
+    public function addContractShow()
+    {
         return view('administration.addcontract');
     }
-    public function addContract(Request $request){
+
+    public function addContract(Request $request)
+    {
         $validatedData = $request->validate([
             'customer_id' => 'required',
             'expiration_date' => 'required',
@@ -81,47 +86,70 @@ class ContractController extends Controller
     {
         $validatedData = $request->validate([
             'id' => 'required',
-            'klantenID' => 'required',
-            'newKey' => 'required|boolean',
-            'actief' => 'required|boolean',
-
+            'customer_id' => 'required',
+            'expiration_date' => 'required',
+            'polygonCoords' => 'json',
+            'permissionsA' => 'array',
+            'stations' => 'array',
         ]);
 
-
-        #update existing employee
+        #update existing contract
         $contract = Contracten::find($validatedData['id']);
         $contract->fill($validatedData);
         $contract->save();
-        return Redirect::route('contracten')->with('success', 'Employee edited successfully.');
-    }
 
-    public function locationstations(){
-        $initialMarkers = [
-            [
-                'position' => [
-                    'lat' => 28.625485,
-                    'lng' => 79.821091
-                ],
-                'label' => [ 'color' => 'white', 'text' => 'P1' ],
-                'draggable' => true
-            ],
-            [
-                'position' => [
-                    'lat' => 28.625293,
-                    'lng' => 79.817926
-                ],
-                'label' => [ 'color' => 'white', 'text' => 'P2' ],
-                'draggable' => false
-            ],
-            [
-                'position' => [
-                    'lat' => 28.625182,
-                    'lng' => 79.81464
-                ],
-                'label' => [ 'color' => 'white', 'text' => 'P3' ],
-                'draggable' => true
-            ]
-        ];
-        return view('administration.locationStation', ['initialMarkers' => $initialMarkers]);
+        $contractId = $contract->id;
+
+        #update all permisions
+        PermissionContract::where('contract_id', $contractId)->delete();
+        if (isset($validatedData['permissionsA'])) {
+            foreach ($validatedData['permissionsA'] as $permission) {
+                $contractPermission = new PermissionContract();
+                $contractPermission->contract_id = $contractId;
+                $contractPermission->permissions = $permission;
+                $contractPermission->save();
+            }
+        }
+
+        #update stations
+        ContractStation::where('contract_id', $contractId)->delete();
+
+        $stations = [];
+
+        $polygonCoords = $request->input('polygonCoords');
+        $polygonArray = json_decode($polygonCoords, true);
+
+        // Now $polygonCoordsArray contains an array of polygon coordinates
+        foreach ($polygonArray as $polygonCoordsArray) {
+            $formattedPolygonCoords = [];
+            foreach ($polygonCoordsArray as $coords) {
+                $formattedPolygonCoords[] = implode(' ', $coords);
+            }
+            $formattedPolygonCoords[] = implode(' ', $polygonCoordsArray[0]);
+            $polygonString = implode(',', $formattedPolygonCoords);
+
+
+            $query = "
+                    SELECT *
+                    FROM station
+                    WHERE ST_Within(location, ST_PolygonFromText('POLYGON(($polygonString))'))
+                   ";
+
+            $stationsWithinPolygon = DB::select($query);
+
+            foreach ($stationsWithinPolygon as $station) {
+                $stations[] = $station;
+            }
+        }
+
+        if (isset($validatedData['stations'])) {
+
+        }
+
+
+
+
+
+        //return Redirect::route('contracten')->with('success', 'Employee edited successfully.');
     }
 }

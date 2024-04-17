@@ -22,7 +22,7 @@
                         <td>{{ $contract->id }}</td>
                         <td>{{ $contract->klant->klantnaam }}</td>
                         <td>{{ optional($contract->stations)->count() ?? 0 }}</td>
-                        <td>{{ optional($contract->permisions)->count() ?? 0 }}</td>
+                        <td>{{ optional($contract->permissions)->count() ?? 0 }}</td>
                         <td>
                             <!--TODO: make styling not use -15 px, i know this is bad but i hate front end-->
                             <div
