@@ -11,7 +11,6 @@
         asset('images/adminwallpaper3.jpg'),
         asset('images/adminwallpaper4.jpg'),
         asset('images/adminwallpaper5.jpg'),
-        asset('images/adminwallpaper6.jpg'),
     ];
 
     $selectedBackground = $backgroundImages[array_rand($backgroundImages)];
