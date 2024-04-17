@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Contracten;
 use App\Models\ContractStation;
+use App\Models\Geolocation;
 use App\Models\PermissionContract;
 use App\Models\Station;
 use Illuminate\Http\Request;
@@ -113,43 +114,61 @@ class ContractController extends Controller
 
         #update stations
         ContractStation::where('contract_id', $contractId)->delete();
-
         $stations = [];
 
-        $polygonCoords = $request->input('polygonCoords');
-        $polygonArray = json_decode($polygonCoords, true);
+        if (isset($validatedData['polygonCoords'])) {
+            $polygonCoords = $validatedData['polygonCoords'];
+            $polygonArray = json_decode($polygonCoords, true);
 
-        // Now $polygonCoordsArray contains an array of polygon coordinates
-        foreach ($polygonArray as $polygonCoordsArray) {
-            $formattedPolygonCoords = [];
-            foreach ($polygonCoordsArray as $coords) {
-                $formattedPolygonCoords[] = implode(' ', $coords);
-            }
-            $formattedPolygonCoords[] = implode(' ', $polygonCoordsArray[0]);
-            $polygonString = implode(',', $formattedPolygonCoords);
+            // Now $polygonCoordsArray contains an array of polygon coordinates
+            foreach ($polygonArray as $polygonCoordsArray) {
+                $formattedPolygonCoords = [];
+                foreach ($polygonCoordsArray as $coords) {
+                    $formattedPolygonCoords[] = implode(' ', $coords);
+                }
+                $formattedPolygonCoords[] = implode(' ', $polygonCoordsArray[0]);
+                $polygonString = implode(',', $formattedPolygonCoords);
 
 
-            $query = "
+                $query = "
                     SELECT *
                     FROM station
                     WHERE ST_Within(location, ST_PolygonFromText('POLYGON(($polygonString))'))
                    ";
 
-            $stationsWithinPolygon = DB::select($query);
+                $stationsWithinPolygon = DB::select($query);
 
-            foreach ($stationsWithinPolygon as $station) {
-                $stations[] = $station;
+                foreach ($stationsWithinPolygon as $station) {
+                    $stations[] = $station;
+                }
             }
         }
 
-        if (isset($validatedData['stations'])) {
+        $matchingGeolocations = collect();
 
+        if (isset($validatedData['stations'])) {
+            foreach ($validatedData['stations'] as $option => $fields) {
+                foreach ($fields as $input) {
+                    echo $option . ' ' . $input . '<br>';
+                    // Retrieve geolocations where the specified field is equal to the input value
+                    $geolocations = Geolocation::where($option, $input)->get();
+                    // Merge the retrieved geolocations into the collection
+                    $matchingGeolocations = $matchingGeolocations->merge($geolocations);
+                }
+            }
         }
 
+        foreach ($matchingGeolocations as $geolocation) {
+            $stations[] = $geolocation->station;
+        }
 
+        foreach ($stations as $station) {
+            $contractStation = new ContractStation();
+            $contractStation->contract_id = $contractId;
+            $contractStation->station = $station->name;
+            $contractStation->save();
+        }
 
-
-
-        //return Redirect::route('contracten')->with('success', 'Employee edited successfully.');
+        return Redirect::route('contracten')->with('success', 'Employee edited successfully.');
     }
 }
