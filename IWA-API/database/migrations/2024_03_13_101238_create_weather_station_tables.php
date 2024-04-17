@@ -35,7 +35,7 @@ class CreateWeatherStationTables extends Migration
             $table->string('island')->nullable();
             $table->string('county')->nullable();
             $table->string('place')->nullable();
-            $table->string('hamlet')->nullable();
+            $table->string('hamlet')->nullable( );
             $table->string('town')->nullable();
             $table->string('municipality')->nullable();
             $table->string('state_district')->nullable();
