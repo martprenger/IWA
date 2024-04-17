@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Contracten;
 use App\Models\ContractStation;
+use App\Models\Country;
 use App\Models\Geolocation;
 use App\Models\PermissionContract;
 use App\Models\Station;
@@ -149,9 +150,17 @@ class ContractController extends Controller
         if (isset($validatedData['stations'])) {
             foreach ($validatedData['stations'] as $option => $fields) {
                 foreach ($fields as $input) {
-                    echo $option . ' ' . $input . '<br>';
-                    // Retrieve geolocations where the specified field is equal to the input value
-                    $geolocations = Geolocation::where($option, $input)->get();
+                    $geolocations = collect();
+                    if (strpos($option, 'countryName.country') === 0) {
+                        $country = Country::where('country', $input)->first();
+                        // If the country doesn't exist, return an empty collection
+                        if ($country) {
+                            $geolocations = Geolocation::where('country_code', $country->country_code)->get();
+                        }
+                    } else {
+                        // No nested relationships, directly query the field
+                        $geolocations = Geolocation::where($option, $input)->get();
+                    }
                     // Merge the retrieved geolocations into the collection
                     $matchingGeolocations = $matchingGeolocations->merge($geolocations);
                 }

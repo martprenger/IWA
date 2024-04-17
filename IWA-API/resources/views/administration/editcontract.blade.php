@@ -49,10 +49,10 @@
 
                     <div class="dropdown-menu dropdown" aria-labelledby="navbarDropdown">
                         <a class="dropdown-item" onclick="addGeolocation()">Geolocation</a>
-                        <a class="dropdown-item" onclick="addInputField('country')">Country</a>
+                        <a class="dropdown-item" onclick="addInputField('countryName.country')">Country</a>
                         <a class="dropdown-item" onclick="addInputField('county')">County</a>
                         <a class="dropdown-item" onclick="addInputField('state')">State</a>
-                        <a class="dropdown-item" onclick="addInputField('land')">Land</a>
+                        <a class="dropdown-item" onclick="addInputField('municipality')">Municipality</a>
                     </div>
                 </div>
 
