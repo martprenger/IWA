@@ -1,3 +1,17 @@
+<script>
+    // JavaScript function to add active class to SVG based on current URL
+    document.addEventListener("DOMContentLoaded", function () {
+        const currentPageURL = window.location.href;
+        const navLinks = document.querySelectorAll(".navbar-brand svg");
+
+        navLinks.forEach(function (link) {
+            if (link.parentNode.href === currentPageURL) {
+                link.classList.add("active");
+            }
+        });
+    });
+</script>
+
 <nav class="navbar navbar-expand-lg navbar-light bg-light" style="border-bottom: 2px solid darkgray;">
     <!-- Left Side Of Navbar -->
     <div class="navbar-brand" style="mix-blend-mode: multiply; margin-left: 20px">
