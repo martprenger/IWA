@@ -64,7 +64,7 @@
             </div>
 
             <!-- Right Side Of Navbar -->
-            <div class="navbar-search" style="margin-right: -60px; margin-top:15px;">
+            <div class="navbar-search" style="margin-right: -85px; margin-top:15px;">
                 <form method="POST" action="{{ route('customerlist') }}">
                     @csrf
                     <div class="row justify-content-end">

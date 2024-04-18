@@ -60,7 +60,7 @@
             <!-- Hier kan nog iets komen -->
             <!-- Right Side Of Navbar -->
             <div>
-                <div class="ml-auto " style="margin-top:15px; margin-right: -85px; margin-left: 20px;">
+                <div class="ml-auto " style="margin-top:10px; margin-right: -85px; margin-left: 20px;">
                     <form method="POST" action="{{ route('station') }}">
                         @csrf
                         <div class="row justify-content-end">
