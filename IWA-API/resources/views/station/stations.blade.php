@@ -83,6 +83,9 @@
                 </tbody>
             </table>
         </div>
+        <div class="pagination-links">
+            {{ $geolocations->links() }}
+        </div>
     </div>
     <div class="container">
         <form method="POST" action="{{ route('APIManagements') }}">
@@ -157,3 +160,5 @@
 
 
 @endsection
+
+
