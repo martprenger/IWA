@@ -85,7 +85,7 @@ Route::post('/deletestation', [StationController::class, 'deleteStation'])-> nam
  */
 
 Route::get('/contracten', [ContractController::class, 'show']) ->name('contracten');
-Route::post('/contracten', [ContractController::class, 'show']) ->name('contracten');
+Route::post('/contracten', [ContractController::class, 'show']) ->name('contract');
 Route::get('/addcontract', [ContractController::class, 'addContractShow']) ->name('addcontract');
 Route::post('/addcontract', [ContractController::class, 'addContract']) ->name('addcontracts');
 Route::get('/editcontract/{id}', [ContractController::class, 'editContractShow']) ->name('editcontract');

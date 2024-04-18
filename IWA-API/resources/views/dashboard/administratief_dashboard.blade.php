@@ -2,11 +2,11 @@
 <style>body{ overflow:hidden;}</style>
 
 @php
-    use App\Models\User;
+    use App\Models\Klant;
+    use App\Models\Contracten;
+
     class Geolocation extends \App\Models\Geolocation{}
 
-           $geolocations = Geolocation::all();
-           $totalCount = count($geolocations->pluck('station_name')->unique());
            $currentTime = date('H'); // Get the current hour in 24-hour format
            $greeting = ''; // Initialize the greeting variable
 
@@ -23,11 +23,11 @@
     <div class="text-with-shadow " style="padding-top: 50px; font-family: 'Arial Black' ,serif; font-size: 50px; text-align: center; color: white; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);">{{ $greeting }} {{ ucwords(Auth::user()->name) }}</div>
     <div class="row justify-content-center align-items-center h-50">
         <div class="col-md-3 col-sm-3" style="margin-right: 100px;">
-            <div class="text-with-shadow" style="font-family: 'Arial Black' ,serif; font-size: 100px; text-align: center; color: white; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);"> {{ $totalCount }} </div>
+            <div class="text-with-shadow" style="font-family: 'Arial Black' ,serif; font-size: 100px; text-align: center; color: white; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);"> {{ Contracten::count() }} </div>
             <div class="text-with-shadow" style="font-family: 'Arial Black' ,serif; font-size: 50px; text-align: center; color: white; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);">Contracten</div>
         </div>
         <div class="col-md-3 col-sm-3" style="margin-left: 100px;">
-            <div class="text-with-shadow" style="font-family: 'Arial Black',serif; font-size: 100px; text-align: center; color: white; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);">{{ User::count()  }}</div>
+            <div class="text-with-shadow" style="font-family: 'Arial Black',serif; font-size: 100px; text-align: center; color: white; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);">{{ Klant::count() }}</div>
             <div class="text-with-shadow" style="font-family: 'Arial Black',serif; font-size: 50px; text-align: center; color: white; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);">Klanten</div>
         </div>
     </div>
