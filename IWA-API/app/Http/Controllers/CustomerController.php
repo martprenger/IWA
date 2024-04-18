@@ -19,7 +19,7 @@ class CustomerController extends Controller
         return view('administration.addcustomer');
     }
 
-    public function addCostumer(Request $request)
+    public function addCustomer(Request $request)
     {
         $validatedData = $request->validate([
             'klantnaam' => 'required|string|max:255',
@@ -33,12 +33,12 @@ class CustomerController extends Controller
         return Redirect::route('customerlist')->with('success', 'Customer added successfully.');
     }
 
-    public function editCostumerShow($id) {
+    public function editCustomerShow($id) {
         $customer = Klant::find($id);
         return view('administration.editcustomer', ['customer' => $customer]);
     }
 
-    public function editCostumer(Request $request) {
+    public function editCustomer(Request $request) {
         $validatedData = $request->validate([
             'original_id' => 'required',
             'name' => 'required',
@@ -53,7 +53,7 @@ class CustomerController extends Controller
     }
 
 
-    public function costumerlist(Request $request){
+    public function customerlist(Request $request){
         $post = $request->all();
 
         // Start a query

@@ -96,12 +96,12 @@ Route::post('/deletecontract', [ContractController::class, 'deleteContract']) ->
 Route::get('/stationlocation', [ContractController::class, 'locationstations']);
 
 
-Route::get('/customerlist', [CustomerController::class, 'costumerlist']) ->name('customerlist');
-Route::post('/customerlist', [CustomerController::class, 'costumerlist']) ->name('customerlist');
+Route::get('/customerlist', [CustomerController::class, 'customerlist']) ->name('customerlist');
+Route::post('/customerlist', [CustomerController::class, 'customerlist']) ->name('customerlist');
 Route::get('/addcustomer', [CustomerController::class, 'show']) ->name('customer');
-Route::post('/addcustomer', [CustomerController::class, 'addCostumer']) ->name('addcustomer');
-Route::get('/editcustomer/{id}', [CustomerController::class, 'editCostumerShow']) ->name('editcustomer');
-Route::post('/editcustomer', [CustomerController::class, 'editCostumer']) ->name('editcustomerpost');
+Route::post('/addcustomer', [CustomerController::class, 'addCustomer']) ->name('addcustomer');
+Route::get('/editcustomer/{id}', [CustomerController::class, 'editCustomerShow']) ->name('editcustomer');
+Route::post('/editcustomer', [CustomerController::class, 'editCustomer']) ->name('editcustomerpost');
 Route::post('/deletecustomer', [CustomerController::class, 'deleteCustomer']) ->name('deletecustomer');
 /*
  * routes voor de API keys
