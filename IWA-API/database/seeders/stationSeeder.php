@@ -25,7 +25,7 @@ class stationSeeder extends Seeder
                         $pdo = new \PDO($dsn, $config['username'], $config['password']);
 
                         // Path to your SQL file
-                        $sqlFile = database_path('IWA-data/station.sql');
+                        $sqlFile = database_path('IWA-data/new_sql.sql');
 
                         // Read SQL file content
                         $sql = file_get_contents($sqlFile);

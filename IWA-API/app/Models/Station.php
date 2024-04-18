@@ -18,4 +18,19 @@ class Station extends Model
         'latitude',
         'location'
     ];
+
+    public function stationErrors()
+    {
+        return $this->hasMany(StationError::class);
+    }
+
+    public function contractStations()
+    {
+        return $this->hasMany(ContractStation::class);
+    }
+
+    public function geolocation()
+    {
+        return $this->hasOne(Geolocation::class, 'station_name', 'name');
+    }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Models\StationError;
 use App\Models\WeatherData;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
@@ -19,7 +20,7 @@ class PostWeatherDataController extends Controller
 
             // Iterate over each weather data record
             foreach ($jsonData as $data) {
-                
+
                 // Check for missing data
                 $stationID = $data['STN'];
 
@@ -66,6 +67,23 @@ class PostWeatherDataController extends Controller
         foreach ($data as $key=>$value) {
             if ($value == "None" || !$this->checkForValidData($stationID, $key, $value)) { // TODO: This should create an error for the administrive employee
                 $newData[$key] = $this->createLostData($stationID, $key);
+                $errorType = $value == "None" ? 'no value' : 'no valid data';
+
+                $stationError = StationError::where('station_name', $stationID)
+                    ->where('error', $errorType)
+                    ->first();
+
+                if ($stationError) {
+                    // If the station already has this error, increment the count
+                    $stationError->increment('count');
+                } else {
+                    // If the station does not have this error, create a new StationError
+                    StationError::create([
+                        'station_name' => $stationID,
+                        'error' => $errorType,
+                        'count' => 1
+                    ]);
+                }
             } else {
                 $newData[$key] = $value;
             }
@@ -76,6 +94,21 @@ class PostWeatherDataController extends Controller
     public function createLostData($stationID, $key) {
         $lastEntries = WeatherData::where("STN", $stationID)->orderBy("created_at", "desc")->take(5)->get();
         if ($lastEntries->count() === 0) { // TODO: Raise error for immediate faulty reading within first 5 operations of the weather station.
+            $stationError = StationError::where('station_name', $stationID)
+                ->where('error_key', 'Immediate faulty reading')
+                ->first();
+
+            if ($stationError) {
+                // If the station already has this error, increment the count
+                $stationError->increment('count');
+            } else {
+                // If the station does not have this error, create a new StationError
+                StationError::create([
+                    'station_name' => $stationID,
+                    'error' => 'Immediate faulty reading',
+                    'count' => 1
+                ]);
+            }
             return 0;
         }
         $newValue = $lastEntries->avg($key);
@@ -91,7 +124,7 @@ class PostWeatherDataController extends Controller
             return true;
         }
         return ($value < $lastEntrie[$key] * 1.20) && ($value > $lastEntrie[$key] * 0.80);
-    }  
+    }
 }
 
 
