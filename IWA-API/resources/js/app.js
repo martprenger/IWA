@@ -7,6 +7,9 @@
 import './bootstrap';
 import { createApp } from 'vue';
 
+
+
+
 /**
  * Next, we will create a fresh Vue application instance. You may then begin
  * registering components with the application instance so they are ready
@@ -25,6 +28,8 @@ app.component('example-component', ExampleComponent);
  *
  * Eg. ./components/ExampleComponent.vue -> <example-component></example-component>
  */
+
+
 
 // Object.entries(import.meta.glob('./**/*.vue', { eager: true })).forEach(([path, definition]) => {
 //     app.component(path.split('/').pop().replace(/\.\w+$/, ''), definition.default);

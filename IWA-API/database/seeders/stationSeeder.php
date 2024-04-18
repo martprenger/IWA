@@ -17,19 +17,19 @@ class stationSeeder extends Seeder
 
                         // Get the connection configuration
                         $config = config("database.connections.{$connection}");
-                
+
                         // Build the DSN string
                         $dsn = "{$config['driver']}:host={$config['host']};port={$config['port']};dbname={$config['database']}";
-                
+
                         // Create PDO connection
                         $pdo = new \PDO($dsn, $config['username'], $config['password']);
-                
+
                         // Path to your SQL file
                         $sqlFile = database_path('IWA-data/station.sql');
-                
+
                         // Read SQL file content
                         $sql = file_get_contents($sqlFile);
-                
+
                         // Execute SQL queries
                         $pdo->exec($sql);
     }
