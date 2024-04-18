@@ -1,3 +1,5 @@
+@import "~leaflet/dist/leaflet.css";
+
 .mirrored {
     transform: scaleX(-1);
 }

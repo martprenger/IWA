@@ -86,7 +86,7 @@ Route::get('/contracten', [ContractController::class, 'show']) ->name('contracte
 Route::post('/contracten', [ContractController::class, 'show']) ->name('contracten');
 Route::get('/addcontract', [ContractController::class, 'addContractShow']) ->name('addcontract');
 Route::post('/addcontract', [ContractController::class, 'addContract']) ->name('addcontracts');
-Route::get('/editcontract', [ContractController::class, 'editContractShow']) ->name('editcontract');
+Route::get('/editcontract/{id}', [ContractController::class, 'editContractShow']) ->name('editcontract');
 Route::post('/editcontract', [ContractController::class, 'editContract']) ->name('editcontracts');
 Route::post('/deletecontract', [ContractController::class, 'deleteContract']) ->name('deletecontract');
 

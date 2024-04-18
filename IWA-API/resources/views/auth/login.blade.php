@@ -3,7 +3,7 @@
 @section('body')
     <style>
         body {
-            background-image: url('{{ asset('images/wallpaperadmin.jpg') }}');
+            background-image: url('{{ asset('images/loginwallpaper.jpg') }}');
             background-size: cover;
             background-repeat: no-repeat;
         }

@@ -3,13 +3,17 @@
 namespace App\Http\Controllers;
 
 use App\Models\Contracten;
+use App\Models\ContractStation;
+use App\Models\Country;
+use App\Models\Geolocation;
 use App\Models\PermissionContract;
+use App\Models\Station;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redirect;
 
 class ContractController extends Controller
 {
-
     public function __construct()
     {
         $this->middleware('auth');
@@ -45,14 +49,19 @@ class ContractController extends Controller
         return Redirect::route('contracten')->with('success', 'API deleted successfully.');
     }
 
-    public function addContractShow(){
+    public function addContractShow()
+    {
         return view('administration.addcontract');
     }
-    public function addContract(Request $request){
+
+    public function addContract(Request $request)
+    {
         $validatedData = $request->validate([
             'customer_id' => 'required',
             'expiration_date' => 'required',
+            'polygonCoords' => 'json',
             'permissionsA' => 'array',
+            'stations' => 'array',
         ]);
 
         $contract = new Contracten();
@@ -61,12 +70,10 @@ class ContractController extends Controller
 
         $contractId = $contract->id;
 
-        foreach ($validatedData['permissionsA'] as $permission) {
-            $contractPermission = new PermissionContract();
-            $contractPermission->contract_id = $contractId;
-            $contractPermission->permissions = $permission;
-            $contractPermission->save();
-        }
+        $this->permisionContract($contractId, $validatedData);
+
+        $this->stationContract($contractId, $validatedData);
+
         #TODO: make notification work and make redirect better
         return Redirect::route('contracten')->with('success', 'API added successfully.');
     }
@@ -81,47 +88,114 @@ class ContractController extends Controller
     {
         $validatedData = $request->validate([
             'id' => 'required',
-            'klantenID' => 'required',
-            'newKey' => 'required|boolean',
-            'actief' => 'required|boolean',
-
+            'customer_id' => 'required',
+            'expiration_date' => 'required',
+            'polygonCoords' => 'json',
+            'permissionsA' => 'array',
+            'stations' => 'array',
         ]);
 
-
-        #update existing employee
+        #update existing contract
         $contract = Contracten::find($validatedData['id']);
         $contract->fill($validatedData);
         $contract->save();
+
+        $contractId = $contract->id;
+
+        $this->permisionContract($contractId, $validatedData);
+
+        $this->stationContract($contractId, $validatedData);
+
         return Redirect::route('contracten')->with('success', 'Employee edited successfully.');
     }
 
-    public function locationstations(){
-        $initialMarkers = [
-            [
-                'position' => [
-                    'lat' => 28.625485,
-                    'lng' => 79.821091
-                ],
-                'label' => [ 'color' => 'white', 'text' => 'P1' ],
-                'draggable' => true
-            ],
-            [
-                'position' => [
-                    'lat' => 28.625293,
-                    'lng' => 79.817926
-                ],
-                'label' => [ 'color' => 'white', 'text' => 'P2' ],
-                'draggable' => false
-            ],
-            [
-                'position' => [
-                    'lat' => 28.625182,
-                    'lng' => 79.81464
-                ],
-                'label' => [ 'color' => 'white', 'text' => 'P3' ],
-                'draggable' => true
-            ]
-        ];
-        return view('administration.locationStation', ['initialMarkers' => $initialMarkers]);
+    public function permisionContract($contractId, $validatedData)
+    {
+        #update all permisions
+        PermissionContract::where('contract_id', $contractId)->delete();
+        if (isset($validatedData['permissionsA'])) {
+            foreach ($validatedData['permissionsA'] as $permission) {
+                $contractPermission = new PermissionContract();
+                $contractPermission->contract_id = $contractId;
+                $contractPermission->permissions = $permission;
+                $contractPermission->save();
+            }
+        }
+    }
+
+    public function stationContract($contractId, $validatedData)
+    {
+        #update stations
+        ContractStation::where('contract_id', $contractId)->delete();
+        $stations = [];
+
+        if (isset($validatedData['polygonCoords'])) {
+            $polygonCoords = $validatedData['polygonCoords'];
+            $polygonArray = json_decode($polygonCoords, true);
+
+            // Now $polygonCoordsArray contains an array of polygon coordinates
+            foreach ($polygonArray as $polygonCoordsArray) {
+                $formattedPolygonCoords = [];
+                foreach ($polygonCoordsArray as $coords) {
+                    $formattedPolygonCoords[] = implode(' ', $coords);
+                }
+                $formattedPolygonCoords[] = implode(' ', $polygonCoordsArray[0]);
+                $polygonString = implode(',', $formattedPolygonCoords);
+
+
+                $query = "
+                    SELECT *
+                    FROM station
+                    WHERE ST_Within(location, ST_PolygonFromText('POLYGON(($polygonString))'))
+                   ";
+
+                $stationsWithinPolygon = DB::select($query);
+
+                foreach ($stationsWithinPolygon as $station) {
+                    $stations[] = $station;
+                }
+            }
+        }
+
+        $matchingGeolocations = collect();
+
+        if (isset($validatedData['stations'])) {
+            foreach ($validatedData['stations'] as $option => $fields) {
+                foreach ($fields as $input) {
+                    $geolocations = collect();
+                    if (strpos($option, 'countryName.country') === 0) {
+                        $country = Country::where('country', $input)->first();
+                        // If the country doesn't exist, return an empty collection
+                        if ($country) {
+                            $geolocations = Geolocation::where('country_code', $country->country_code)->get();
+                        }
+                    } else {
+                        // No nested relationships, directly query the field
+                        $geolocations = Geolocation::where($option, $input)->get();
+                    }
+                    // Merge the retrieved geolocations into the collection
+                    $matchingGeolocations = $matchingGeolocations->merge($geolocations);
+                }
+            }
+        }
+
+        foreach ($matchingGeolocations as $geolocation) {
+            $stations[] = $geolocation->station;
+        }
+
+        foreach ($stations as $station) {
+            // Check if the station already exists in the database
+            $existingStation = ContractStation::where('contract_id', $contractId)
+                ->where('station', $station->name)
+                ->first();
+
+            // If the station doesn't exist, create a new entry
+            if (!$existingStation) {
+                $contractStation = new ContractStation();
+                $contractStation->contract_id = $contractId;
+                $contractStation->station = $station->name;
+                $contractStation->save();
+            }
+        }
     }
 }
