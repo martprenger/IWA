@@ -17,7 +17,6 @@ class KlantenSeeder extends Seeder
         DB::table('klanten')->insert([
             'klantnaam' => 'John Doe',
             'email' => 'john@example.com',
-            'password' => bcrypt('password123'),
             'created_at' => now(),
             'updated_at' => now(),
         ]);

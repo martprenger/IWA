@@ -2,6 +2,24 @@
 @include($navbar)
 
 @section('body')
+    <div class="bottom-navbar" style="position: fixed; bottom: 0; width: 100%;">
+        <nav class="navbar navbar-expand-lg navbar-light bg-rgba" style="background-color: rgba(77, 153, 231, 1);">
+            <!-- Left Side Of Navbar -->
+            <div class="navbar-brand" style="margin-left: 35px;">
+                <a href="{{ route('addstation') }}"><svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="rgba(173, 255, 47, 1)" class="bi bi-plus-circle-fill" viewBox="0 0 16 16">
+                        <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0M8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3z"/>
+                    </svg></a>
+
+            </div>
+            <!-- Center Side Of Navbar -->
+            <div class="mx-auto order-0">
+                <!-- Hier kan nog iets komen -->
+            </div>
+
+            <!-- Right Side Of Navbar -->
+
+        </nav>
+    </div>
     <div class="container-fluid pl-0">
         <div class="col-md-12">
             <h3>Stations</h3>
@@ -140,24 +158,7 @@
         </form>
     </div>
 
-    <div class="bottom-navbar" style="position: fixed; bottom: 0; width: 100%;">
-        <nav class="navbar navbar-expand-lg navbar-light bg-rgba" style="background-color: rgba(77, 153, 231, 1);">
-            <!-- Left Side Of Navbar -->
-            <div class="navbar-brand" style="margin-left: 35px;">
-                <a href="{{ route('addstation') }}"><svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="rgba(173, 255, 47, 1)" class="bi bi-plus-circle-fill" viewBox="0 0 16 16">
-                        <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0M8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3z"/>
-                    </svg></a>
 
-            </div>
-            <!-- Center Side Of Navbar -->
-            <div class="mx-auto order-0">
-                <!-- Hier kan nog iets komen -->
-            </div>
-
-            <!-- Right Side Of Navbar -->
-
-        </nav>
-    </div>
 @endsection
 
 

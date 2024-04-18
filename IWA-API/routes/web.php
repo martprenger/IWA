@@ -4,6 +4,7 @@ use App\Http\Controllers\AddMachineController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\APIController;
 use App\Http\Controllers\ContractController;
+use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\EmployeesController;
 use App\Http\Controllers\ErrorController;
 use App\Http\Controllers\InvoicesController;
@@ -93,6 +94,11 @@ Route::post('/deletecontract', [ContractController::class, 'deleteContract']) ->
 
 
 Route::get('/stationlocation', [ContractController::class, 'locationstations']);
+
+
+Route::get('/addcustomer', [CustomerController::class, 'show']) ->name('customer');
+Route::post('/addcustomer', [CustomerController::class, 'addCostumer']) ->name('addcustomer');
+Route::get('/customerlist', [CustomerController::class, 'costumerlist']) ->name('customerlist');
 /*
  * routes voor de API keys
  */

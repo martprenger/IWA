@@ -15,7 +15,6 @@ class Klant extends Model
         'id',
         'klantnaam',
         'email',
-        'password'
     ];
 
     public function apiKeys()

@@ -18,7 +18,6 @@ return new class extends Migration
             $table->id();
             $table->string('klantnaam');
             $table->string('email');
-            $table->string('password');
             $table->timestamps();
         });
     }
