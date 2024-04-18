@@ -5,6 +5,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\APIController;
 use App\Http\Controllers\ContractController;
 use App\Http\Controllers\EmployeesController;
+use App\Http\Controllers\ErrorController;
 use App\Http\Controllers\InvoicesController;
 use App\Http\Controllers\LogsMedewerkersController;
 use Illuminate\Support\Facades\Auth;
@@ -104,7 +105,11 @@ Route::get('/editAPI/{id}', [APIController::class, 'editAPIShow']) ->name('editA
 Route::post('/editAPI', [APIController::class, 'editAPI']) ->name('editAPI');
 Route::post('/deleteAPI', [APIController::class, 'deleteAPI']) ->name('deleteAPI');
 
-Route::get('/testdb', [testdbController::class, 'index']);
 
 
+/*
+ * routes voor de station errors
+ */
 
+Route::get('/stationerrors', [ErrorController::class, 'show']) ->name('stationerrors');
+Route::post('/deletestationerror', [ErrorController::class, 'deleteError']) ->name('deletestationerror');
