@@ -4,7 +4,7 @@
 @section('body')
     <div class="container-fluid pl-0">
         <div class="col-md-12">
-            <h3>Stations</h3>
+            <h3>Error</h3>
             <table class="table table-striped">
                 <thead>
                 <tr>
