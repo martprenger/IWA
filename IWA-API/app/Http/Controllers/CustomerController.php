@@ -41,7 +41,7 @@ class CustomerController extends Controller
     public function editCustomer(Request $request) {
         $validatedData = $request->validate([
             'original_id' => 'required',
-            'name' => 'required',
+            'klantnaam' => 'required',
             'email' => 'required|email'
         ]);
 
