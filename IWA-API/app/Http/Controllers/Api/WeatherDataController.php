@@ -11,6 +11,7 @@ use App\Models\Contracten;
 use App\Models\PermissionContract;
 use App\Models\ContractStation;
 use App\Models\APIkeys;
+use App\Models\Station;
 
 class WeatherDataController extends Controller
 {
@@ -27,7 +28,7 @@ class WeatherDataController extends Controller
             $returnData = $this->getData($this->getQuery($request, $id), $stations);
         }
 
-        return response()->json($stations, 200);
+        return response()->json($returnData, 200);
     }
 
     public function getData($query, $stations) {
