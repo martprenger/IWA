@@ -13,7 +13,7 @@
 
 
 
-<div class="container-md" style="position: absolute; top: 55%; left: 50%; transform: translate(-50%, -50%);">
+<div class="container-md mt-3">
         <form method="POST" action="{{ route('editemployee') }}">
             @csrf
             <input type="hidden" name="original_id" value="{{$employee->id}}">

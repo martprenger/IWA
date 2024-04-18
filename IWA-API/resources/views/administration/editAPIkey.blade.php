@@ -3,11 +3,16 @@
 
 @section('body')
 
+    <style>
+        body {
+            background-image: url('{{ asset('images/loginwallpaper.jpg') }}');
+            background-size: cover;
+            background-repeat: no-repeat;
+        }
+    </style>
+
     <div>
-        <div class="container-image">
-            <img src="{{ asset('images/LogoIWA.jpg') }}" alt="">
-        </div>
-        <div class="container-md">
+        <div class="container-md mt-3">
             <form method="POST" action="{{ route('editAPI') }}">
                 @csrf
                 <input type="hidden" name="id" value="{{$key->id}}">
