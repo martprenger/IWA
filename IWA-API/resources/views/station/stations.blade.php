@@ -1,7 +1,7 @@
 @extends('layouts.page')
 @include($navbar)
-
 @section('body')
+
     <div class="bottom-navbar" style="position: fixed; bottom: 0; width: 100%;">
         <nav class="navbar navbar-expand-lg navbar-light bg-rgba" style="background-color: rgba(77, 153, 231, 1);">
             <!-- Left Side Of Navbar -->
@@ -13,16 +13,88 @@
             </div>
             <!-- Center Side Of Navbar -->
             <div class="mx-auto order-0">
+
                 <!-- Hier kan nog iets komen -->
             </div>
-
             <!-- Right Side Of Navbar -->
+            <div>
+                <div class="ml-auto " style="margin-top:15px; margin-right: -80px; margin-left: 160px;">
+                    <form method="POST" action="{{ route('APIManagements') }}">
+                        @csrf
+                        <div class="row justify-content-end">
+                            <!-- Modify form fields as per Geolocation model attributes -->
+                            <div class="col-md-1">
+                                <input type="text" name="station_name" class="form-control" placeholder="Station Name">
+                            </div>
+                            <div class="col-md-1">
+                                <input type="text" name="country_code" class="form-control" placeholder="Country Code">
+                            </div>
+                            <!--
+                            <div class="col-md-1">
+                                <input type="text" name="island" class="form-control" placeholder="Island">
+                            </div>
+                            -->
+                            <div class="col-md-1">
+                                <input type="text" name="county" class="form-control" placeholder="County">
+                            </div>
+                            <div class="col">
+                                <input type="text" name="place" class="form-control" placeholder="Place">
+                            </div>
+                            <!--
+                            <div class="col-md-1">
+                                <input type="text" name="hamlet" class="form-control" placeholder="Hamlet">
+                            </div>-->
 
+                            <div class="col">
+                                <input type="text" name="town" class="form-control" placeholder="Town">
+                            </div>
+                            <div class="col" >
+                                <input type="text" name="municipality" class="form-control" placeholder="Municipality">
+                            </div>
+                            <div class="col">
+                                <input type="text" name="state_district" class="form-control" placeholder="State District">
+                            </div>
+                            <!--
+                            <div class="col-md-1">
+                                <input type="text" name="administrative" class="form-control" placeholder="Administrative">
+                            </div>
+                            -->
+                            <div class="col">
+                                <input type="text" name="state" class="form-control" placeholder="State">
+                            </div>
+                <div class="col">
+                    <input type="text" name="village" class="form-control" placeholder="Village">
+                </div>
+                            <div class="col">
+                                <input type="text" name="region" class="form-control" placeholder="Region">
+                            </div>
+                            <!--
+                            <div class="col-md-2">
+                                <input type="text" name="province" class="form-control" placeholder="Province">
+                            </div>
+
+                            <div class="col-md-2">
+                                <input type="text" name="city" class="form-control" placeholder="City">
+                            </div>
+
+                            <div class="col-md-2">
+                                <input type="text" name="locality" class="form-control" placeholder="Locality">
+                            </div>
+                            -->
+                            <!-- Add other relevant form fields -->
+                            <div class="col">
+                                <button type="submit" class="btn" style="background-color:rgba(173, 255, 47, 1)"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="22" fill="black)" class="bi bi-search" viewBox="0 0 16 16">
+                                        <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"/>
+                                    </svg></button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
         </nav>
     </div>
     <div class="container-fluid pl-0">
         <div class="col-md-12">
-            <h3>Stations</h3>
             <table class="table table-striped">
                 <thead>
                 <tr>
@@ -83,80 +155,57 @@
                 </tbody>
             </table>
         </div>
-        <div class="pagination-links">
-            {{ $geolocations->links() }}
-        </div>
     </div>
-    <div class="container">
-        <form method="POST" action="{{ route('APIManagements') }}">
-            @csrf
-            <div class="row">
-                <!-- Modify form fields as per Geolocation model attributes -->
-                <div class="col-md-2">
-                    <input type="text" name="station_name" class="form-control" placeholder="Station Name">
-                </div>
-                <div class="col-md-2">
-                    <input type="text" name="country_code" class="form-control" placeholder="Country Code">
-                </div>
-                <!--
-                <div class="col-md-2">
-                    <input type="text" name="island" class="form-control" placeholder="Island">
-                </div>
-                -->
-                <div class="col-md-2">
-                    <input type="text" name="county" class="form-control" placeholder="County">
-                </div>
-                <div class="col-md-2">
-                    <input type="text" name="place" class="form-control" placeholder="Place">
-                </div>
-                <!--
-                <div class="col-md-2">
-                    <input type="text" name="hamlet" class="form-control" placeholder="Hamlet">
-                </div>
-                -->
-                <div class="col-md-2">
-                    <input type="text" name="town" class="form-control" placeholder="Town">
-                </div>
-                <div class="col-md-2">
-                    <input type="text" name="municipality" class="form-control" placeholder="Municipality">
-                </div>
-                <div class="col-md-2">
-                    <input type="text" name="state_district" class="form-control" placeholder="State District">
-                </div>
-                <!--
-                <div class="col-md-2">
-                    <input type="text" name="administrative" class="form-control" placeholder="Administrative">
-                </div>
-                -->
-                <div class="col-md-2">
-                    <input type="text" name="state" class="form-control" placeholder="State">
-                </div>
-                <div class="col-md-2">
-                    <input type="text" name="village" class="form-control" placeholder="Village">
-                </div>
-                <div class="col-md-2">
-                    <input type="text" name="region" class="form-control" placeholder="Region">
-                </div>
-                <!--
-                <div class="col-md-2">
-                    <input type="text" name="province" class="form-control" placeholder="Province">
-                </div>
-                -->
-                <div class="col-md-2">
-                    <input type="text" name="city" class="form-control" placeholder="City">
-                </div>
-                <!--
-                <div class="col-md-2">
-                    <input type="text" name="locality" class="form-control" placeholder="Locality">
-                </div>
-                -->
-                <!-- Add other relevant form fields -->
-                <div class="col-md-2">
-                    <button type="submit" class="btn btn-primary">Filter</button>
-                </div>
-            </div>
-        </form>
+
+    <div class="pagination-links d-flex justify-content-center mt-5" style="margin-bottom: 90px;">
+        <ul class="pagination">
+            {{-- Previous Page Link --}}
+            @if ($geolocations->onFirstPage())
+                <li class="page-item disabled">
+                    <span class="page-link">&laquo;</span>
+                </li>
+            @else
+                <li class="page-item">
+                    <a class="page-link" href="{{ $geolocations->previousPageUrl() }}" rel="prev">&laquo;</a>
+                </li>
+            @endif
+
+            {{-- Pagination Elements --}}
+            @if ($geolocations->currentPage() <= 10)
+                @for ($page = 1; $page <= min(10, $geolocations->lastPage()); $page++)
+                    @if ($page == $geolocations->currentPage())
+                        <li class="page-item active"><span class="page-link">{{ $page }}</span></li>
+                    @else
+                        <li class="page-item"><a class="page-link" href="{{ $geolocations->url($page) }}">{{ $page }}</a></li>
+                    @endif
+                @endfor
+            @else
+                {{-- If current page is greater than 10 --}}
+                @for ($page = $geolocations->currentPage() - 4; $page <= $geolocations->currentPage() + 5; $page++)
+                    @if ($page == $geolocations->currentPage())
+                        <li class="page-item active"><span class="page-link">{{ $page }}</span></li>
+                    @else
+                        <li class="page-item"><a class="page-link" href="{{ $geolocations->url($page) }}">{{ $page }}</a></li>
+                    @endif
+                @endfor
+            @endif
+            {{-- Next Page Link --}}
+            @if ($geolocations->hasMorePages())
+                <li class="page-item">
+                    <a class="page-link" href="{{ $geolocations->nextPageUrl() }}" rel="next">&raquo;</a>
+                </li>
+            @else
+                <li class="page-item disabled">
+                    <span class="page-link">&raquo;</span>
+                </li>
+            @endif
+
+        </ul>
     </div>
+
+
+
+
 
 
 @endsection
