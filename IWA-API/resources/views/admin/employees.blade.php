@@ -80,7 +80,7 @@
                         </div>
                         <div class="col-md-2">
                             <select name="worker_type" class="form-control">
-                                <option value="">Role</option>
+                                <option value="">Type werknemer</option>
                                 <option value="admin">Admin</option>
                                 <option value="wetenschappelijk">Wetenschappelijk</option>
                                 <option value="administratief">Administratief</option>

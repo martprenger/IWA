@@ -186,7 +186,7 @@
     -->
 
     <div class="container-fluid pl-0">
-        <div class="col-md-12">
+        <div class="col-md-12" style="margin-bottom: 90px">
             <table class="table table-striped">
                 <thead>
                 <tr>

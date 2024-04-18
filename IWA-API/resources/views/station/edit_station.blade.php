@@ -2,12 +2,16 @@
 @include($navbar)
 @section('body')
 
+    <style>
+        body {
+            background-image: url('{{ asset('images/loginwallpaper.jpg') }}');
+            background-size: cover;
+            background-repeat: no-repeat;
+        }
+    </style>
+
 {{--edit station page--}}
-<div>
-    <div class="container-image">
-        <img src="{{ asset('images/LogoIWA.jpg') }}" alt="">
-    </div>
-    <div class="container-md">
+    <div class="container-md" style="margin-bottom: 40px; margin-top:20px;">
         <form method="POST" action="{{ route('editstation') }}">
             @csrf
             <input type="hidden" name="old_name" value="{{$station->name}}">
@@ -160,7 +164,9 @@
                 @enderror
             </div>
             <!-- Add other fields in a similar manner -->
+            <div style="text-align: center">
             <button type="submit" class="btn btn-primary">Submit</button>
+            </div>
         </form>
     </div>
 </div>

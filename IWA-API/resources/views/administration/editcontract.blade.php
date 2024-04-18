@@ -15,21 +15,24 @@
     <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
     <!-- Leaflet.draw JavaScript -->
     <script src="https://unpkg.com/leaflet-draw/dist/leaflet.draw.js"></script>
-
+    <style>
+        body {
+            background-image: url('{{ asset('images/loginwallpaper.jpg') }}');
+            background-size: cover;
+            background-repeat: no-repeat;
+        }
+    </style>
 
     <div>
-        <div class="container-image">
-            <img src="{{ asset('images/LogoIWA.jpg') }}" alt="">
-        </div>
-        <div class="container-md">
+        <div class="container-md" style="position: absolute; top: 55%; left: 50%; transform: translate(-50%, -50%);">
             <form action="{{ route('editcontracts') }}" method="POST">
                 @csrf
 
                 <input type="hidden" id="id" name="id" value="{{ $contract->id }}">
 
                 <div class="mb-3">
-                    <label for="exampleInputEmail1" class="form-label">klant nummer</label>
-                    <input type="text" placeholder="klant nummer" id="customer_id" class="form-control"
+                    <label for="exampleInputEmail1" class="form-label">Klantnummer</label>
+                    <input type="text" placeholder="Klantnummer" id="customer_id" class="form-control"
                            aria-describedby="emailHelp" name="customer_id" value="{{ $contract->customer_id ?? '' }}"
                            required autofocus>
                     @if ($errors->has('customer_id'))
@@ -39,10 +42,10 @@
 
                 <div class="navbar-brand">
                     <button class="btn btn-primary dropdown-toggle" type="button" id="navbarDropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Choose Weather Station Option
+                        Kies weerstationoptie
                     </button>
 
-                    <div id="inputs">
+                    <div id="inputs" >
                         <div id="mapContainer"></div>
 
                     </div>
@@ -57,10 +60,10 @@
                 </div>
 
 
-                <div class="mb-3">
-                    <label for="exampleInputEmail1" class="form-label">expiration date</label>
-                    <div class="col-md-2">
-                        <input type="date" name="expiration_date" class="form-control" placeholder="End Date"
+                <div class="mb-3" >
+                    <label for="exampleInputEmail1" class="form-label">Einddatum</label>
+                    <div class="col-md-3">
+                        <input type="date" name="expiration_date" class="form-control" placeholder="Einddatum"
                                value="{{ $contract->expiration_date ?? '' }}">
                     </div>
                     @if ($errors->has('expiration_date'))
@@ -71,57 +74,59 @@
 
                 <div class="btn-group-toggle" data-toggle="buttons">
                     <label for="exampleInputEmail1" class="form-label">Permissions</label>
-                    <label class="btn btn-secondary">
+                    <div>
+                    <div style="text-align: center">
+                        <label class="btn btn-secondary m-1">
                         <input type="checkbox" autocomplete="off" id="TEMP" name="permissionsA[]"
                                value="TEMP" {{ $contract->permissions->where('permissions', 'TEMP')->isNotEmpty() ? 'checked' : '' }}>
                         TEMP
                     </label>
-                    <label class="btn btn-secondary">
+                    <label class="btn btn-secondary m-1">
                         <input type="checkbox" autocomplete="off" id="DEWP" name="permissionsA[]"
                                value="DEWP" {{ $contract->permissions->where('permissions', 'DEWP')->isNotEmpty() ? 'checked' : '' }}>
                         DEWP
                     </label>
-                    <label class="btn btn-secondary">
+                    <label class="btn btn-secondary m-1">
                         <input type="checkbox" autocomplete="off" id="STP" name="permissionsA[]"
                                value="STP" {{ $contract->permissions->where('permissions', 'STP')->isNotEmpty() ? 'checked' : '' }}>
                         STP
                     </label>
-                    <label class="btn btn-secondary">
+                    <label class="btn btn-secondary m-1">
                         <input type="checkbox" autocomplete="off" id="SLP" name="permissionsA[]"
                                value="SLP" {{ $contract->permissions->where('permissions', 'SLP')->isNotEmpty() ? 'checked' : '' }}>
                         SLP
                     </label>
-                    <label class="btn btn-secondary">
+                    <label class="btn btn-secondary m-1">
                         <input type="checkbox" autocomplete="off" id="VISIB" name="permissionsA[]"
                                value="VISIB" {{ $contract->permissions->where('permissions', 'VISIB')->isNotEmpty() ? 'checked' : '' }}>
                         VISIB
                     </label>
-                    <label class="btn btn-secondary">
+                    <label class="btn btn-secondary m-1">
                         <input type="checkbox" autocomplete="off" id="WDSP" name="permissionsA[]"
                                value="WDSP" {{ $contract->permissions->where('permissions', 'WDSP')->isNotEmpty() ? 'checked' : '' }}>
                         WDSP
                     </label>
-                    <label class="btn btn-secondary">
+                    <label class="btn btn-secondary m-1">
                         <input type="checkbox" autocomplete="off" id="PRCP" name="permissionsA[]"
                                value="PRCP" {{ $contract->permissions->where('permissions', 'PRCP')->isNotEmpty() ? 'checked' : '' }}>
                         PRCP
                     </label>
-                    <label class="btn btn-secondary">
+                    <label class="btn btn-secondary m-1">
                         <input type="checkbox" autocomplete="off" id="SNDP" name="permissionsA[]"
                                value="SNDP" {{ $contract->permissions->where('permissions', 'SNDP')->isNotEmpty() ? 'checked' : '' }}>
                         SNDP
                     </label>
-                    <label class="btn btn-secondary">
+                    <label class="btn btn-secondary m-1">
                         <input type="checkbox" autocomplete="off" id="FRSHTT" name="permissionsA[]"
                                value="FRSHTT" {{ $contract->permissions->where('permissions', 'FRSHTT')->isNotEmpty() ? 'checked' : '' }}>
                         FRSHTT
                     </label>
-                    <label class="btn btn-secondary">
+                    <label class="btn btn-secondary m-1">
                         <input type="checkbox" autocomplete="off" id="CLDC" name="permissionsA[]"
                                value="CLDC" {{ $contract->permissions->where('permissions', 'CLDC')->isNotEmpty() ? 'checked' : '' }}>
                         CLDC
                     </label>
-                    <label class="btn btn-secondary">
+                    <label class="btn btn-secondary m-1">
                         <input type="checkbox" autocomplete="off" id="WNDDIR" name="permissionsA[]"
                                value="WNDDIR" {{ $contract->permissions->where('permissions', 'WNDDIR')->isNotEmpty() ? 'checked' : '' }}>
                         WNDDIR
@@ -129,9 +134,9 @@
                     @if ($errors->has('permissionsA'))
                         <span class="text-danger">{{ $errors->first('permissionsA') }}</span>
                     @endif
+                <button type="submit" class="btn btn-primary m-1">Aanpassen</button>
                 </div>
-
-                <button type="submit" class="btn btn-primary">Update Permissions</button>
+                    </div></div>
             </form>
         </div>
     </div>
