@@ -27,7 +27,7 @@ class WeatherDataController extends Controller
             $returnData = $this->getData($this->getQuery($request, $id), $stations);
         }
 
-        return response()->json($this->getQuery($request, $id), 200);
+        return response()->json($stations, 200);
     }
 
     public function getData($query, $stations) {
@@ -47,15 +47,16 @@ class WeatherDataController extends Controller
     
     public function getQuery($request, $contractID) {
         $query = array();
-        foreach ($request->query() as $key => $val) {
-            if ($key == "value" && WeatherData::isAccesible($val)) {
+        $values = explode(",", $request->query('value'));
+        foreach ($values as $val) {
+            if (WeatherData::isAccesible($val)) {
                 if (PermissionContract::where("contract_id", $contractID)
                         ->where("permissions", $val)
                         ->exists()) 
                 {
                     array_push($query, $val);
                 } else {
-                    abort(401, 'You dont have access to the '.$key.' field');
+                    abort(401, 'You dont have access to the '.$val.' field');
                 }
             }
         }
