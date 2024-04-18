@@ -28,6 +28,11 @@ class APIController extends Controller
             $query->where('id', 'like', '%' . $post['id'] . '%');
         }
 
+        if (!empty($post['klantenNaam'])) {
+            $klant = Klant::where('klantnaam', 'like', '%' . $post['klantenNaam'] . '%')->first();
+            $query->where('klantenID', 'like', '%' . $klant->id . '%');
+        }
+
 
         if (!empty($post['APIkey'])) {
             $query->where('APIkey', 'like', '%' . $post['APIkey'] . '%');
@@ -45,9 +50,9 @@ class APIController extends Controller
             $query->whereDate('created_at', '<', $post['end_date']);
         }
 
-        $keys = $query->get();
+        $APIkeys = $query->paginate(200);
 
-        return view('administration.APIManagement', ['keys' => $keys]);
+        return view('administration.APIManagement',  ['APIkeys' => $APIkeys]);
     }
 
     public function deleteAPI(Request $request)
