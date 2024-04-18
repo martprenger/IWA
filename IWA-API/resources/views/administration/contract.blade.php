@@ -23,7 +23,7 @@
 
             <!-- Right Side Of Navbar -->
             <div class="navbar-search" style="margin-right: -70px; margin-top:15px;">
-                <form method="POST" action="{{ route('contracten') }}">
+                <form method="POST" action="{{ route('contract') }}">
                     @csrf
                     <div class="row justify-content-end">
 

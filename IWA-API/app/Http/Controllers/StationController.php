@@ -27,7 +27,8 @@ class StationController extends Controller
         }
 
         // If a country is provided, filter by country
-        if ($request->has('country')) {
+        //if is set country
+        if (isset($request->country)) {
             $country = Country::where('country', $request->input('country'))->first();
             $query->where('country_code', 'like', '%' . $country->country_code . '%');
         }
