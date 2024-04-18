@@ -8,13 +8,6 @@ use Illuminate\Support\Facades\Auth;
 
 class NavbarMiddleware
 {
-    /**
-     * Handle an incoming request.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \Closure  $next
-     * @return mixed
-     */
     public function handle(Request $request, Closure $next)
     {
         $user = Auth::user();
