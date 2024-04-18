@@ -16,16 +16,21 @@
     <!-- Leaflet.draw JavaScript -->
     <script src="https://unpkg.com/leaflet-draw/dist/leaflet.draw.js"></script>
 
-    <div>
-        <div class="container-image">
-            <img src="{{ asset('images/LogoIWA.jpg') }}" alt="">
-        </div>
+    <style>
+        body {
+            background-image: url('{{ asset('images/loginwallpaper.jpg') }}');
+            background-size: cover;
+            background-repeat: no-repeat;
+        }
+    </style>
+
+    <div style="padding-top: 25px;">
         <div class="container-md">
             <form method="POST" action="{{ route('addcontract') }}">
                 @csrf
                 <div class="mb-3">
-                    <label for="exampleInputEmail1" class="form-label">klant nummer</label>
-                    <input type="text" placeholder="klant nummer" id="customer_id" class="form-control"
+                    <label for="exampleInputEmail1" class="form-label">Klantnummer</label>
+                    <input type="text" placeholder="Klantnummer" id="customer_id" class="form-control"
                            aria-describedby="emailHelp" name="customer_id" required autofocus>
                     @if ($errors->has('customer_id'))
                         <span class="text-danger">{{ $errors->first('customer_id') }}</span>
@@ -34,7 +39,7 @@
 
                 <div class="navbar-brand">
                     <button class="btn btn-primary dropdown-toggle" type="button" id="navbarDropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Choose Weather Station Option
+                        Kies weerstationoptie
                     </button>
 
                     <div id="inputs">
@@ -52,8 +57,8 @@
                 </div>
 
                 <div class="mb-3">
-                    <label for="exampleInputEmail1" class="form-label">expiration date</label>
-                    <div class="col-md-2">
+                    <label for="exampleInputEmail1" class="form-label">Einddatum</label>
+                    <div class="col-md-3">
                         <input type="date" name="expiration_date" class="form-control" placeholder="End Date">
                     </div>
                     @if ($errors->has('expiration_date'))
@@ -63,38 +68,39 @@
 
                 <div class="btn-group-toggle" data-toggle="buttons">
                     <label for="exampleInputEmail1" class="form-label">Permissions</label>
-                    <label class="btn btn-secondary">
+                    <div style="text-align: center">
+                    <label class="btn btn-secondary m-1">
                         <input type="checkbox" autocomplete="off" id="TEMP" name="permissionsA[]" value="TEMP"> TEMP
                     </label>
-                    <label class="btn btn-secondary">
+                    <label class="btn btn-secondary m-1">
                         <input type="checkbox" autocomplete="off" id="DEWP" name="permissionsA[]" value="DEWP"> DEWP
                     </label>
-                    <label class="btn btn-secondary">
+                    <label class="btn btn-secondary m-1">
                         <input type="checkbox" autocomplete="off" id="STP" name="permissionsA[]" value="STP"> STP
                     </label>
-                    <label class="btn btn-secondary">
+                    <label class="btn btn-secondary m-1">
                         <input type="checkbox" autocomplete="off" id="SLP" name="permissionsA[]" value="SLP"> SLP
                     </label>
-                    <label class="btn btn-secondary">
+                    <label class="btn btn-secondary m-1">
                         <input type="checkbox" autocomplete="off" id="VISIB" name="permissionsA[]" value="VISIB"> VISIB
                     </label>
-                    <label class="btn btn-secondary">
+                    <label class="btn btn-secondary m-1">
                         <input type="checkbox" autocomplete="off" id="WDSP" name="permissionsA[]" value="WDSP"> WDSP
                     </label>
-                    <label class="btn btn-secondary">
+                    <label class="btn btn-secondary m-1">
                         <input type="checkbox" autocomplete="off" id="PRCP" name="permissionsA[]" value="PRCP"> PRCP
                     </label>
-                    <label class="btn btn-secondary">
+                    <label class="btn btn-secondary m-1">
                         <input type="checkbox" autocomplete="off" id="SNDP" name="permissionsA[]" value="SNDP"> SNDP
                     </label>
-                    <label class="btn btn-secondary">
+                    <label class="btn btn-secondary m-1">
                         <input type="checkbox" autocomplete="off" id="FRSHTT" name="permissionsA[]" value="FRSHTT">
                         FRSHTT
                     </label>
-                    <label class="btn btn-secondary">
+                    <label class="btn btn-secondary m-1">
                         <input type="checkbox" autocomplete="off" id="CLDC" name="permissionsA[]" value="CLDC"> CLDC
                     </label>
-                    <label class="btn btn-secondary">
+                    <label class="btn btn-secondary m-1">
                         <input type="checkbox" autocomplete="off" id="WNDDIR" name="permissionsA[]" value="WNDDIR">
                         WNDDIR
                     </label>
@@ -102,8 +108,9 @@
                         <span class="text-danger">{{ $errors->first('permissionsA') }}</span>
                     @endif
                 </div>
-
-                <button type="submit" class="btn btn-primary">make contract</button>
+                    <div style="text-align: center">
+                <button type="submit" class="btn btn-primary m-1">Maak contract</button>
+                    </div></div>
             </form>
         </div>
 
