@@ -6,7 +6,50 @@
     <div class="bottom-navbar" style="position: fixed; bottom: 0; width: 100%;">
         <nav class="navbar navbar-expand-lg navbar-light bg-rgba" style="background-color: rgba(77, 153, 231, 1);">
             <!-- Left Side Of Navbar -->
-            <div class="navbar-brand" style="margin-left: 35px;">
+            <div class="navbar-brand">
+            </div>
+            <div class="mx-auto order-0">
+                <div class="pagination-links d-flex justify-content-center mt-5" style="margin-bottom: 30px; margin-left: 15px">
+                    <ul class="pagination">
+                        {{-- Previous Page Link --}}
+                        @if ($errors->onFirstPage())
+                            <li class="page-item disabled">
+                                <span class="page-link">&laquo;</span>
+                            </li>
+                        @else
+                            <li class="page-item">
+                                <a class="page-link" href="{{ $errors->previousPageUrl() }}" rel="prev">&laquo;</a>
+                            </li>
+                        @endif
+
+                        {{-- Pagination Elements --}}
+                        @if ($errors->lastPage() > 0)
+                            @php
+                                $startPage = max($errors->currentPage() - 2, 1);
+                                $endPage = min($startPage + 4, $errors->lastPage());
+                            @endphp
+                            @for ($page = $startPage; $page <= $endPage; $page++)
+                                @if ($page == $errors->currentPage())
+                                    <li class="page-item active"><span class="page-link">{{ $page }}</span></li>
+                                @else
+                                    <li class="page-item"><a class="page-link" href="{{ $errors->url($page) }}">{{ $page }}</a></li>
+                                @endif
+                            @endfor
+                        @endif
+
+                        {{-- Next Page Link --}}
+                        @if ($errors->hasMorePages())
+                            <li class="page-item">
+                                <a class="page-link" href="{{ $errors->nextPageUrl() }}" rel="next">&raquo;</a>
+                            </li>
+                        @else
+                            <li class="page-item disabled">
+                                <span class="page-link">&raquo;</span>
+                            </li>
+                        @endif
+
+                    </ul>
+                </div>
             </div>
             <!-- Center Side Of Navbar -->
             <div class="mx-auto order-0">
@@ -80,10 +123,6 @@
                 @endforeach
                 </tbody>
             </table>
-        </div>
-
-        <div class="pagination-links">
-            {{ $errors->links() }}
         </div>
     </div>
 

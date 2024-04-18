@@ -14,7 +14,7 @@
             </div>
             <!-- Center Side Of Navbar -->
 <div class="mx-auto order-0">
-                <div class="pagination-links d-flex justify-content-center mt-5" style="margin-bottom: 30px; margin-left: -540px">
+                <div class="pagination-links d-flex justify-content-center mt-5" style="margin-bottom: 30px;">
                     <ul class="pagination">
                         {{-- Previous Page Link --}}
                         @if ($APIkeys->onFirstPage())
