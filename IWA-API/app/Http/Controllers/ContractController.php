@@ -59,7 +59,9 @@ class ContractController extends Controller
         $validatedData = $request->validate([
             'customer_id' => 'required',
             'expiration_date' => 'required',
+            'polygonCoords' => 'json',
             'permissionsA' => 'array',
+            'stations' => 'array',
         ]);
 
         $contract = new Contracten();
@@ -74,6 +76,9 @@ class ContractController extends Controller
             $contractPermission->permissions = $permission;
             $contractPermission->save();
         }
+
+        $this->stationContract($contractId, $validatedData);
+
         #TODO: make notification work and make redirect better
         return Redirect::route('contracten')->with('success', 'API added successfully.');
     }
@@ -113,6 +118,13 @@ class ContractController extends Controller
             }
         }
 
+        $this->stationContract($contractId, $validatedData);
+
+        return Redirect::route('contracten')->with('success', 'Employee edited successfully.');
+    }
+
+    public function stationContract($contractId, $validatedData)
+    {
         #update stations
         ContractStation::where('contract_id', $contractId)->delete();
         $stations = [];
@@ -172,12 +184,18 @@ class ContractController extends Controller
         }
 
         foreach ($stations as $station) {
-            $contractStation = new ContractStation();
-            $contractStation->contract_id = $contractId;
-            $contractStation->station = $station->name;
-            $contractStation->save();
-        }
+            // Check if the station already exists in the database
+            $existingStation = ContractStation::where('contract_id', $contractId)
+                ->where('station', $station->name)
+                ->first();
 
-        return Redirect::route('contracten')->with('success', 'Employee edited successfully.');
+            // If the station doesn't exist, create a new entry
+            if (!$existingStation) {
+                $contractStation = new ContractStation();
+                $contractStation->contract_id = $contractId;
+                $contractStation->station = $station->name;
+                $contractStation->save();
+            }
+        }
     }
 }
