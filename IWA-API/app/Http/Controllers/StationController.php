@@ -18,7 +18,7 @@ class StationController extends Controller
 
     public function show()
     {
-        $geolocations = Geolocation::all();
+        $geolocations = Geolocation::paginate(200);
         return view('station.stations', ['geolocations' => $geolocations]);
 
     }
