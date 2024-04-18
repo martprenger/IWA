@@ -24,8 +24,8 @@
         }
     </style>
 
-    <div>
-        <div class="container-md" style="position: absolute; top: 55%; left: 50%; transform: translate(-50%, -50%);">
+    <div style="padding-top: 25px;">
+        <div class="container-md">
             <form method="POST" action="{{ route('addcontract') }}">
                 @csrf
                 <div class="mb-3">

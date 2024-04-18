@@ -22,9 +22,8 @@
             background-repeat: no-repeat;
         }
     </style>
-
-    <div>
-        <div class="container-md" style="position: absolute; top: 55%; left: 50%; transform: translate(-50%, -50%);">
+    <div style="padding-top: 25px;">
+        <div class="container-md">
             <form action="{{ route('editcontracts') }}" method="POST">
                 @csrf
 
