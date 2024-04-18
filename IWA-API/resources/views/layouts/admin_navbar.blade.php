@@ -1,18 +1,6 @@
-<script>
-    // JavaScript function to add active class to SVG based on current URL
-    document.addEventListener("DOMContentLoaded", function () {
-        const currentPageURL = window.location.href;
-        const navLinks = document.querySelectorAll(".navbar-brand svg");
+<style>body{padding-top: 90px;}</style>
 
-        navLinks.forEach(function (link) {
-            if (link.parentNode.href === currentPageURL) {
-                link.classList.add("active");
-            }
-        });
-    });
-</script>
-
-<nav class="navbar navbar-expand-lg navbar-light bg-light" style="border-bottom: 2px solid darkgray;">
+<nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top" style="border-bottom: 2px solid darkgray;">
     <!-- Left Side Of Navbar -->
     <div class="navbar-brand" style="mix-blend-mode: multiply; margin-left: 20px">
         <a class="navbar-brand mr-auto" href="{{route('dashboard')}}"><img src="{{ asset('images/LogoIWA.jpg') }}" alt="Logo" width="90" height="72" class="d-inline-block align-text-top"></a>
