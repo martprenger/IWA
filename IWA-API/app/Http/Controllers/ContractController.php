@@ -6,6 +6,7 @@ use App\Models\Contracten;
 use App\Models\ContractStation;
 use App\Models\Country;
 use App\Models\Geolocation;
+use App\Models\Klant;
 use App\Models\PermissionContract;
 use App\Models\Station;
 use Illuminate\Http\Request;
@@ -24,18 +25,46 @@ class ContractController extends Controller
     {
         $post = $request->all();
 
-        // Start a query
         $query = Contracten::query();
 
-        // If an ID is provided, filter by ID
         if (!empty($post['id'])) {
-            $query->where('id', 'like', '%' . $post['id'] . '%');
+            $query->where('id', $post['id']);
+        }
+
+        if (!empty($post['klantenNaam'])) {
+            $klantId = Klant::where('klantnaam', $post['klantenNaam'])->first()->id;
+            if ($klantId) {
+                $query->where('customer_id', $klantId);
+            }
+        }
+
+        if (!empty($post['aantalstations'])) {
+            $stations = ContractStation::select('contract_id')
+                ->selectRaw('count(*) as aantal')
+                ->groupBy('contract_id')
+                ->having('aantal', $post['aantalstations'])
+                ->get();
+
+            $contractIds = $stations->pluck('contract_id');
+            $query->whereIn('id', $contractIds);
+        }
+
+        if (!empty($post['aantalpermisions'])) {
+            $permissions = PermissionContract::select('contract_id')
+                ->selectRaw('count(*) as aantal')
+                ->groupBy('contract_id')
+                ->having('aantal', $post['aantalpermisions'])
+                ->get();
+
+            $contractIds = $permissions->pluck('contract_id');
+            $query->whereIn('id', $contractIds);
         }
 
         $contracten = $query->get();
 
         return view('administration.contract', ['contracten' => $contracten]);
     }
+
 
     public function deleteContract(Request $request)
     {
