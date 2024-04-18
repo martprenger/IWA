@@ -3,7 +3,7 @@
             transform: scale(1.10); /* 5% bigger */
         }}</style>
 
-<nav class="navbar navbar-expand-lg navbar-light bg-light" style="border-bottom: 2px solid darkgray;">
+<nav class="navbar navbar-expand-lg navbar-light bg-light sticky-top" style="border-bottom: 2px solid darkgray;">
     <!-- Left Side Of Navbar -->
     <div class="navbar-brand" style="mix-blend-mode: multiply; margin-left: 20px">
         <a class="navbar-brand mr-auto" href="{{route('dashboard')}}"><img src="{{ asset('images/LogoIWA.jpg') }}" alt="Logo" width="90" height="72" class="d-inline-block align-text-top"></a>
