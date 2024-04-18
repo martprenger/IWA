@@ -1,9 +1,16 @@
 @extends('layouts.page')
 
 @section('body')
+    <style>
+        body {
+            background-image: url('{{ asset('images/loginwallpaper.jpg') }}');
+            background-size: cover;
+            background-repeat: no-repeat;
+        }
+    </style>
 
     <div>
-        <div class="container-image">
+        <div class="container-image" style="text-align: center; mix-blend-mode: multiply">
             <img src="{{ asset('images/LogoIWA.jpg') }}" alt="">
         </div>
         <div class="container-md">
@@ -39,15 +46,18 @@
                         {{ __('Onthoud mij') }}
                     </label>
                 </div>
-
-                <button type="submit" class="btn btn-primary">Login</button>
-                <div>
+                <div style="text-align: center">
+                <button type="submit" class="btn btn-primary" >Login</button>
+                </div>
+                <!-- wachtwoord vergeten, momenteel nog niet werkende
+                <div style="text-align: center">
                     @if (Route::has('password.request'))
                         <a class="btn btn-link" href="{{ route('password.request') }}">
                             {{ __('Wachtwoord vergeten?') }}
                         </a>
                     @endif
                 </div>
+                -->
             </form>
         </div>
 
