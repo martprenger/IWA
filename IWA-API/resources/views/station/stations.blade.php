@@ -61,7 +61,7 @@
             <!-- Right Side Of Navbar -->
             <div>
                 <div class="ml-auto " style="margin-top:15px; margin-right: -85px; margin-left: 20px;">
-                    <form method="POST" action="{{ route('APIManagements') }}">
+                    <form method="POST" action="{{ route('station') }}">
                         @csrf
                         <div class="row justify-content-end">
                             <!-- Modify form fields as per Geolocation model attributes -->
@@ -69,7 +69,7 @@
                                 <input type="text" name="station_name" class="form-control" placeholder="Station name">
                             </div>
                             <div class="col">
-                                <input type="text" name="country_code" class="form-control" placeholder="Country">
+                                <input type="text" name="country" class="form-control" placeholder="Country">
                             </div>
                             <!--
                             <div class="col-md-1">
@@ -86,10 +86,9 @@
                             <div class="col-md-1">
                                 <input type="text" name="hamlet" class="form-control" placeholder="Hamlet">
                             </div>-->
-
-                            <div class="col">
-                                <input type="text" name="town" class="form-control" placeholder="Town">
-                            </div>
+{{--                            <div class="col">--}}
+{{--                                <input type="text" name="town" class="form-control" placeholder="Town">--}}
+{{--                            </div>--}}
                             <div class="col" >
                                 <input type="text" name="municipality" class="form-control" placeholder="Municipality">
                             </div>
@@ -104,9 +103,9 @@
                             <div class="col">
                                 <input type="text" name="state" class="form-control" placeholder="State">
                             </div>
-                <div class="col">
-                    <input type="text" name="village" class="form-control" placeholder="Village">
-                </div>
+{{--                            <div class="col">--}}
+{{--                                <input type="text" name="village" class="form-control" placeholder="Village">--}}
+{{--                            </div>--}}
                             <div class="col">
                                 <input type="text" name="region" class="form-control" placeholder="Region">
                             </div>

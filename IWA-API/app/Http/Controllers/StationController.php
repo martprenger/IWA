@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Country;
 use App\Models\Geolocation;
 use App\Models\NearestLocation;
 use App\Models\Station;
@@ -16,9 +17,46 @@ class StationController extends Controller
         $this->middleware('navbar');
     }
 
-    public function show()
+    public function show(Request $request)
     {
-        $geolocations = Geolocation::paginate(200);
+        $query = Geolocation::query();
+
+        // If a station name is provided, filter by station name
+        if ($request->has('station_name')) {
+            $query->where('station_name', 'like', '%' . $request->input('station_name') . '%');
+        }
+
+        // If a country is provided, filter by country
+        if ($request->has('country')) {
+            $country = Country::where('country', $request->input('country'))->first();
+            $query->where('country_code', 'like', '%' . $country->country_code . '%');
+        }
+
+        // If a county is provided, filter by county
+        if ($request->has('county')) {
+            $query->where('county', 'like', '%' . $request->input('county') . '%');
+        }
+
+        // If a municipality is provided, filter by municipality
+        if ($request->has('municipality')) {
+            $query->where('municipality', 'like', '%' . $request->input('municipality') . '%');
+        }
+
+        // If a state district is provided, filter by state district
+        if ($request->has('state_district')) {
+            $query->where('state_district', 'like', '%' . $request->input('state_district') . '%');
+        }
+
+        // If a state is provided, filter by state
+        if ($request->has('state')) {
+            $query->where('state', 'like', '%' . $request->input('state') . '%');
+        }
+
+        // If a region is provided, filter by region
+        if ($request->has('region')) {
+            $query->where('region', 'like', '%' . $request->input('region') . '%');
+        }
+        $geolocations = $query->paginate(200);
         return view('station.stations', ['geolocations' => $geolocations]);
 
     }
