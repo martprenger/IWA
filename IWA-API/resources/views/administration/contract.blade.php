@@ -7,7 +7,7 @@
         <nav class="navbar navbar-expand-lg navbar-light bg-rgba" style="background-color: rgba(77, 153, 231, 1);">
             <!-- Left Side Of Navbar -->
             <div class="navbar-brand" style="margin-left: 35px;">
-                <a href="{{ route('addstation') }}"><svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="rgba(173, 255, 47, 1)" class="bi bi-plus-circle-fill" viewBox="0 0 16 16">
+                <a href="{{ route('customer') }}"><svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="rgba(173, 255, 47, 1)" class="bi bi-plus-circle-fill" viewBox="0 0 16 16">
                         <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0M8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3z"/>
                     </svg></a>
 
@@ -87,28 +87,7 @@
             </table>
         </div>
     </div>
-    <div class="container">
-        <form method="POST" action="{{ route('APIManagements') }}">
-            @csrf
-            <div class="row">
-                <div class="col-md-2">
-                    <input type="text" name="id" class="form-control" placeholder="ID">
-                </div>
-                <div class="col-md-2">
-                    <input type="text" name="klantenNaam" class="form-control" placeholder="Klant naam">
-                </div>
-                <div class="col-md-2">
-                    <input type="text" name="aantalstations" class="form-control" placeholder="Aantal stations">
-                </div>
-                <div class="col-md-2">
-                    <input type="text" name="aantalpermisions" class="form-control" placeholder="Aantal permisions">
-                </div>
-                <div class="col-md-2">
-                    <button type="submit" class="btn btn-primary">Filter</button>
-                </div>
-            </div>
-        </form>
-    </div>
+
 
 
 
