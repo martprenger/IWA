@@ -83,13 +83,13 @@ Route::get('/customerlist', [CustomerController::class, 'costumerlist']) ->name(
  * routes voor de API keys
  */
 
-Route::get('/APIManagement', [APIController::class, 'show']) ->name('APIManagement')->middleware('role:admin,administratief');
-Route::post('/APIManagement', [APIController::class, 'show']) ->name('APIManagements')->middleware('role:admin,administratief');
-Route::get('/addAPI', [APIController::class, 'addAPIkeyShow']) ->name('addAPI')->middleware('role:admin,administratief');
-Route::post('/addAPI', [APIController::class, 'addAPIkey']) ->name('addAPI')->middleware('role:admin,administratief');
-Route::get('/editAPI/{id}', [APIController::class, 'editAPIShow']) ->name('editAPIs')->middleware('role:admin,administratief');
-Route::post('/editAPI', [APIController::class, 'editAPI']) ->name('editAPI')->middleware('role:admin,administratief');
-Route::post('/deleteAPI', [APIController::class, 'deleteAPI']) ->name('deleteAPI')->middleware('role:admin,administratief');
+Route::get('/APIManagement', [APIController::class, 'show']) ->name('APIManagement')->middleware('role:admin,administratief,wetenschappelijk');
+Route::post('/APIManagement', [APIController::class, 'show']) ->name('APIManagements')->middleware('role:admin,administratief,wetenschappelijk');
+Route::get('/addAPI', [APIController::class, 'addAPIkeyShow']) ->name('addAPI')->middleware('role:admin,administratief,wetenschappelijk');
+Route::post('/addAPI', [APIController::class, 'addAPIkey']) ->name('addAPI')->middleware('role:admin,administratief,wetenschappelijk');
+Route::get('/editAPI/{id}', [APIController::class, 'editAPIShow']) ->name('editAPIs')->middleware('role:admin,administratief,wetenschappelijk');
+Route::post('/editAPI', [APIController::class, 'editAPI']) ->name('editAPI')->middleware('role:admin,administratief,wetenschappelijk');
+Route::post('/deleteAPI', [APIController::class, 'deleteAPI']) ->name('deleteAPI')->middleware('role:admin,administratief,wetenschappelijk');
 
 
 
