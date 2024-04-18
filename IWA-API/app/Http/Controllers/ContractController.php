@@ -70,12 +70,7 @@ class ContractController extends Controller
 
         $contractId = $contract->id;
 
-        foreach ($validatedData['permissionsA'] as $permission) {
-            $contractPermission = new PermissionContract();
-            $contractPermission->contract_id = $contractId;
-            $contractPermission->permissions = $permission;
-            $contractPermission->save();
-        }
+        $this->permisionContract($contractId, $validatedData);
 
         $this->stationContract($contractId, $validatedData);
 
@@ -107,6 +102,15 @@ class ContractController extends Controller
 
         $contractId = $contract->id;
 
+        $this->permisionContract($contractId, $validatedData);
+
+        $this->stationContract($contractId, $validatedData);
+
+        return Redirect::route('contracten')->with('success', 'Employee edited successfully.');
+    }
+
+    public function permisionContract($contractId, $validatedData)
+    {
         #update all permisions
         PermissionContract::where('contract_id', $contractId)->delete();
         if (isset($validatedData['permissionsA'])) {
@@ -117,10 +121,6 @@ class ContractController extends Controller
                 $contractPermission->save();
             }
         }
-
-        $this->stationContract($contractId, $validatedData);
-
-        return Redirect::route('contracten')->with('success', 'Employee edited successfully.');
     }
 
     public function stationContract($contractId, $validatedData)
