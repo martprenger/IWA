@@ -13,13 +13,19 @@ class RoleMiddleware
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  \Closure  $next
-     * @param  string  $role
+     * @param  string  $roles
      * @return mixed
      */
-    public function handle(Request $request, Closure $next, $role)
+    public function handle(Request $request, Closure $next, ...$roles)
     {
-        if (!Auth::check() || Auth::user()->worker_type != $role) {
-            // If the user is not logged in or does not have the required role, deny access
+        // Check if the user is logged in
+        if (!Auth::check()) {
+            return redirect('')->with('error', "You don't have access to this page.");
+        }
+
+        // Check if the user's role matches any of the specified roles
+        $userRole = Auth::user()->worker_type;
+        if (!in_array($userRole, $roles)) {
             return redirect('')->with('error', "You don't have access to this page.");
         }
 

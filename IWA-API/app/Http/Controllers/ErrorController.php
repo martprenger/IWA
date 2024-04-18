@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\StationError;
-use http\Client\Request;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 
 class ErrorController extends Controller
