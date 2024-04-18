@@ -97,6 +97,7 @@ Route::get('/stationlocation', [ContractController::class, 'locationstations']);
 
 Route::get('/addcustomer', [CustomerController::class, 'show']) ->name('customer');
 Route::post('/addcustomer', [CustomerController::class, 'addCostumer']) ->name('addcustomer');
+Route::get('/customerlist', [CustomerController::class, 'costumerlist']) ->name('customerlist');
 /*
  * routes voor de API keys
  */

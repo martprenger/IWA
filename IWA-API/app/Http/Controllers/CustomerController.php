@@ -32,4 +32,10 @@ class CustomerController extends Controller
 
         return Redirect::route('contracten')->with('success', 'Employee added successfully.');
     }
+
+
+    public function costumerlist(){
+        $customers = Klant::all();
+        return view('administration.customerlist', ['customers' => $customers]);
+    }
 }
