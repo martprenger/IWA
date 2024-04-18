@@ -22,7 +22,7 @@
             </div>
 
             <!-- Right Side Of Navbar -->
-            <div class="navbar-search" style="margin-right: -60px; margin-top:15px;">
+            <div class="navbar-search" style="margin-right: -70px; margin-top:15px;">
                 <form method="POST" action="{{ route('contracten') }}">
                     @csrf
                     <div class="row justify-content-end">
@@ -34,10 +34,10 @@
                                 <input type="text" name="klantenNaam" class="form-control" placeholder="Klantnaam">
                             </div>
                             <div class="col-md-2">
-                                <input type="text" name="aantalstations" class="form-control" placeholder="Aantal stations">
+                                <input type="text" name="aantalstations" class="form-control" placeholder="Aantal Stations">
                             </div>
-                            <div class="col-md-2">
-                                <input type="text" name="aantalpermisions" class="form-control" placeholder="Aantal permisions">
+                            <div class="col-md-3" style="width: 20%;">
+                                <input type="text" name="aantalpermisions" class="form-control" placeholder="Aantal Permissions">
                             </div>
 
                         <div class="col-md-2">
@@ -57,9 +57,9 @@
                 <thead>
                 <tr>
                     <th>ID</th>
-                    <th>klant naam</th>
-                    <th>Aantal stations</th>
-                    <th>Aantal permisions</th>
+                    <th>Klantnaam</th>
+                    <th>Aantal Stations</th>
+                    <th>Aantal Permissions</th>
                     <th></th>
                 </tr>
                 </thead>

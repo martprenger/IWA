@@ -13,34 +13,76 @@
             </div>
             <!-- Center Side Of Navbar -->
             <div class="mx-auto order-0">
+                <div class="pagination-links d-flex justify-content-center mt-5" style="margin-bottom: 30px; margin-left: 15px">
+                    <ul class="pagination">
+                        {{-- Previous Page Link --}}
+                        @if ($geolocations->onFirstPage())
+                            <li class="page-item disabled">
+                                <span class="page-link">&laquo;</span>
+                            </li>
+                        @else
+                            <li class="page-item">
+                                <a class="page-link" href="{{ $geolocations->previousPageUrl() }}" rel="prev">&laquo;</a>
+                            </li>
+                        @endif
 
-                <!-- Hier kan nog iets komen -->
+                        {{-- Pagination Elements --}}
+                        @if ($geolocations->lastPage() > 0)
+                            @php
+                                $startPage = max($geolocations->currentPage() - 2, 1);
+                                $endPage = min($startPage + 4, $geolocations->lastPage());
+                            @endphp
+                            @for ($page = $startPage; $page <= $endPage; $page++)
+                                @if ($page == $geolocations->currentPage())
+                                    <li class="page-item active"><span class="page-link">{{ $page }}</span></li>
+                                @else
+                                    <li class="page-item"><a class="page-link" href="{{ $geolocations->url($page) }}">{{ $page }}</a></li>
+                                @endif
+                            @endfor
+                        @endif
+
+                        {{-- Next Page Link --}}
+                        @if ($geolocations->hasMorePages())
+                            <li class="page-item">
+                                <a class="page-link" href="{{ $geolocations->nextPageUrl() }}" rel="next">&raquo;</a>
+                            </li>
+                        @else
+                            <li class="page-item disabled">
+                                <span class="page-link">&raquo;</span>
+                            </li>
+                        @endif
+
+                    </ul>
+                </div>
             </div>
+
+
+            <!-- Hier kan nog iets komen -->
             <!-- Right Side Of Navbar -->
             <div>
-                <div class="ml-auto " style="margin-top:15px; margin-right: -80px; margin-left: 160px;">
+                <div class="ml-auto " style="margin-top:15px; margin-right: -85px; margin-left: 20px;">
                     <form method="POST" action="{{ route('APIManagements') }}">
                         @csrf
                         <div class="row justify-content-end">
                             <!-- Modify form fields as per Geolocation model attributes -->
-                            <div class="col-md-1">
-                                <input type="text" name="station_name" class="form-control" placeholder="Station Name">
+                            <div class="col">
+                                <input type="text" name="station_name" class="form-control" placeholder="Station name">
                             </div>
-                            <div class="col-md-1">
-                                <input type="text" name="country_code" class="form-control" placeholder="Country Code">
+                            <div class="col">
+                                <input type="text" name="country_code" class="form-control" placeholder="Country">
                             </div>
                             <!--
                             <div class="col-md-1">
                                 <input type="text" name="island" class="form-control" placeholder="Island">
                             </div>
                             -->
-                            <div class="col-md-1">
+                            <div class="col">
                                 <input type="text" name="county" class="form-control" placeholder="County">
                             </div>
-                            <div class="col">
+                            <!-- <div class="col">
                                 <input type="text" name="place" class="form-control" placeholder="Place">
                             </div>
-                            <!--
+
                             <div class="col-md-1">
                                 <input type="text" name="hamlet" class="form-control" placeholder="Hamlet">
                             </div>-->
@@ -93,12 +135,62 @@
             </div>
         </nav>
     </div>
+
+
+    <!-- grote page navigatie
+    <div class="pagination-links d-flex justify-content-center mt-5" style="margin-bottom: 200px;">
+        <ul class="pagination">
+            {{-- Previous Page Link --}}
+            @if ($geolocations->onFirstPage())
+                <li class="page-item disabled">
+                    <span class="page-link">&laquo;</span>
+                </li>
+            @else
+                <li class="page-item">
+                    <a class="page-link" href="{{ $geolocations->previousPageUrl() }}" rel="prev">&laquo;</a>
+                </li>
+            @endif
+
+            {{-- Pagination Elements --}}
+            @if ($geolocations->currentPage() <= 10)
+                @for ($page = 1; $page <= min(10, $geolocations->lastPage()); $page++)
+                    @if ($page == $geolocations->currentPage())
+                        <li class="page-item active"><span class="page-link">{{ $page }}</span></li>
+                    @else
+                        <li class="page-item"><a class="page-link" href="{{ $geolocations->url($page) }}">{{ $page }}</a></li>
+                    @endif
+                @endfor
+            @else
+                {{-- If current page is greater than 10 --}}
+                @for ($page = $geolocations->currentPage() - 4; $page <= $geolocations->currentPage() + 5; $page++)
+                    @if ($page == $geolocations->currentPage())
+                        <li class="page-item active"><span class="page-link">{{ $page }}</span></li>
+                    @else
+                        <li class="page-item"><a class="page-link" href="{{ $geolocations->url($page) }}">{{ $page }}</a></li>
+                    @endif
+                @endfor
+            @endif
+            {{-- Next Page Link --}}
+            @if ($geolocations->hasMorePages())
+                <li class="page-item">
+                    <a class="page-link" href="{{ $geolocations->nextPageUrl() }}" rel="next">&raquo;</a>
+                </li>
+            @else
+                <li class="page-item disabled">
+                    <span class="page-link">&raquo;</span>
+                </li>
+            @endif
+
+        </ul>
+    </div>
+    -->
+
     <div class="container-fluid pl-0">
         <div class="col-md-12">
             <table class="table table-striped">
                 <thead>
                 <tr>
-                    <th>Station Name</th>
+                    <th>Stationname</th>
                     <th>Country</th>
                     <!--<th>Island</th>-->
                     <th>County</th>
@@ -157,51 +249,6 @@
         </div>
     </div>
 
-    <div class="pagination-links d-flex justify-content-center mt-5" style="margin-bottom: 90px;">
-        <ul class="pagination">
-            {{-- Previous Page Link --}}
-            @if ($geolocations->onFirstPage())
-                <li class="page-item disabled">
-                    <span class="page-link">&laquo;</span>
-                </li>
-            @else
-                <li class="page-item">
-                    <a class="page-link" href="{{ $geolocations->previousPageUrl() }}" rel="prev">&laquo;</a>
-                </li>
-            @endif
-
-            {{-- Pagination Elements --}}
-            @if ($geolocations->currentPage() <= 10)
-                @for ($page = 1; $page <= min(10, $geolocations->lastPage()); $page++)
-                    @if ($page == $geolocations->currentPage())
-                        <li class="page-item active"><span class="page-link">{{ $page }}</span></li>
-                    @else
-                        <li class="page-item"><a class="page-link" href="{{ $geolocations->url($page) }}">{{ $page }}</a></li>
-                    @endif
-                @endfor
-            @else
-                {{-- If current page is greater than 10 --}}
-                @for ($page = $geolocations->currentPage() - 4; $page <= $geolocations->currentPage() + 5; $page++)
-                    @if ($page == $geolocations->currentPage())
-                        <li class="page-item active"><span class="page-link">{{ $page }}</span></li>
-                    @else
-                        <li class="page-item"><a class="page-link" href="{{ $geolocations->url($page) }}">{{ $page }}</a></li>
-                    @endif
-                @endfor
-            @endif
-            {{-- Next Page Link --}}
-            @if ($geolocations->hasMorePages())
-                <li class="page-item">
-                    <a class="page-link" href="{{ $geolocations->nextPageUrl() }}" rel="next">&raquo;</a>
-                </li>
-            @else
-                <li class="page-item disabled">
-                    <span class="page-link">&raquo;</span>
-                </li>
-            @endif
-
-        </ul>
-    </div>
 
 
 
