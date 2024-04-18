@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\StationError;
-use http\Env\Request;
+use http\Client\Request;
 use Illuminate\Support\Facades\Redirect;
 
 class ErrorController extends Controller
@@ -16,11 +16,13 @@ class ErrorController extends Controller
 
     public function show()
     {
-        $errors = StationError::paginate(200);
+        $errors = StationError::orderBy('count', 'desc')
+            ->orderBy('created_at', 'asc')
+            ->paginate(200);
         return view('wetenschapelijk.station_errors', ['errors' => $errors]);
     }
 
-    public function deleteError(\Illuminate\Http\Request $request)
+    public function deleteError(Request $request)
     {
         $validatedData = $request->validate([
             'name' => 'required',
