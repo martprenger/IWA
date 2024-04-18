@@ -103,4 +103,5 @@ Route::post('/deleteAPI', [APIController::class, 'deleteAPI']) ->name('deleteAPI
  */
 
 Route::get('/stationerrors', [ErrorController::class, 'show']) ->name('stationerrors')->middleware('role:admin,wetenschappelijk');
+Route::post('/stationerrors', [ErrorController::class, 'show']) ->name('stationerror')->middleware('role:admin,wetenschappelijk');
 Route::post('/deletestationerror', [ErrorController::class, 'deleteError']) ->name('deletestationerror')->middleware('role:admin,wetenschappelijk');

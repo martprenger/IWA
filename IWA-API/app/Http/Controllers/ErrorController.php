@@ -14,9 +14,17 @@ class ErrorController extends Controller
         $this->middleware('navbar');
     }
 
-    public function show()
+    public function show(Request $request)
     {
-        $errors = StationError::orderBy('count', 'desc')
+        $post = $request->all();
+
+        $query = StationError::query();
+
+        if (!empty($post['station_name'])) {
+            $query->where('station_name', $post['station_name']);
+        }
+
+        $errors = $query->orderBy('count', 'desc')
             ->orderBy('created_at', 'asc')
             ->paginate(200);
         return view('wetenschapelijk.station_errors', ['errors' => $errors]);

@@ -15,7 +15,7 @@
 
             <!-- Right Side Of Navbar -->
             <div class="ml-auto" style="margin-right:-50px; margin-top: 15px;">
-                <form method="POST" action="{{ route('APIManagements') }}">
+                <form method="POST" action="{{ route('stationerror') }}">
                     @csrf
                     <div class="row">
                         <!-- Modify form fields as per Geolocation model attributes -->

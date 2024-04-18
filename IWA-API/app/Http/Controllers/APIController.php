@@ -72,7 +72,7 @@ class APIController extends Controller
     }
     public function addAPIkey(Request $request){
         $validatedData = $request->validate([
-            'klantenID' => 'required',
+            'klantenID' => 'required|exists:klanten,id',
             'actief' => 'required|boolean',
         ]);
 
@@ -100,7 +100,7 @@ class APIController extends Controller
     {
         $validatedData = $request->validate([
             'id' => 'required',
-            'klantenID' => 'required',
+            'klantenID' => 'required|exists:klanten,id',
             'newKey' => 'required|boolean',
             'actief' => 'required|boolean',
 

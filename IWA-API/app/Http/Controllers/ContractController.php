@@ -86,7 +86,7 @@ class ContractController extends Controller
     public function addContract(Request $request)
     {
         $validatedData = $request->validate([
-            'customer_id' => 'required',
+            'customer_id' => 'required|exists:klanten,id',
             'expiration_date' => 'required',
             'polygonCoords' => 'json',
             'permissionsA' => 'array',
@@ -117,7 +117,7 @@ class ContractController extends Controller
     {
         $validatedData = $request->validate([
             'id' => 'required',
-            'customer_id' => 'required',
+            'customer_id' => 'required|exists:klant,id',
             'expiration_date' => 'required',
             'polygonCoords' => 'json',
             'permissionsA' => 'array',
