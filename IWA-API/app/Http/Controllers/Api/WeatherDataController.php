@@ -17,7 +17,9 @@ class WeatherDataController extends Controller
 {
 
     public function receiveRequest(Request $request, $id, $station = null) {
-        $this->checkApiContractMatch($request, $id);
+        if (!$this->checkApiContractMatch($request, $id)) {
+            abort(401, 'API key doesnt match contract');
+        }
         $returnData;
         $count = $this->getCount($request);
         if (isset($station)) {
