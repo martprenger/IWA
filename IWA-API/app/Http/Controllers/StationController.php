@@ -30,7 +30,9 @@ class StationController extends Controller
         //if is set country
         if (isset($request->country)) {
             $country = Country::where('country', $request->input('country'))->first();
-            $query->where('country_code', 'like', '%' . $country->country_code . '%');
+            if ($country) {
+                $query->where('country_code', 'like', '%' . $country->country_code . '%');
+            }
         }
 
         // If a county is provided, filter by county
@@ -71,11 +73,11 @@ class StationController extends Controller
     {
         // Validate the incoming request data
         $validatedData = $request->validate([
-            'name' => 'required|string|max:10',
+            'name' => 'required|string|max:10|unique:stations,name',
             'elevation' => 'required|numeric',
             'longitude' => 'required|numeric',
             'latitude' => 'required|numeric',
-            'country_code' => 'required|string|size:2',
+            'country_code' => 'required|string|size:2|exists:countries,country_code',
             'island' => 'nullable|string',
             'county' => 'nullable|string',
             'place' => 'nullable|string',
