@@ -46,8 +46,7 @@ class WeatherDataController extends Controller
         foreach ($stations as $station) {
             $queryBuilder = WeatherData::query();
             $queryBuilder->select($query)->where("STN", $station)->latest()->take($count);
-            $stationSpecificData = array();
-            $stationSpecificData[$station] = $queryBuilder->get();
+            $stationSpecificData = array("STN"=> $station, "DATA"=> $queryBuilder->get());
             array_push($returnData, $stationSpecificData);
         }
 
