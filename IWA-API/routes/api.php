@@ -26,7 +26,3 @@ Route::post('/postWeatherData', [PostWeatherDataController::class, "processWeath
 
 Route::get('/contracten/{id}/all', [WeatherDataController::class, 'receiveRequest'])->where('id', '[0-9]+'); // Get all data associated with the contract
 Route::get('/contracten/{id}/{station}', [WeatherDataController::class, 'receiveRequest'])->where(['id' => '[0-9]+', 'station' => '[0-9]+']); // Get all data from specified station
-
-
-
-
