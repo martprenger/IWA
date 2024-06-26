@@ -78,8 +78,12 @@ class WeatherDataController extends Controller
                 $startTime = date("H:i:s", strtotime($start));
                 $endTime = date("H:i:s", strtotime($end));
                 $queryBuilder->whereDate("DATE", ">=", $startDate)
-                    ->whereDate("DATE", "<=", $endDate)
-                    ->whereTime("TIME", ">=", $startTime)
+                    ->whereDate("DATE", "<=", $endDate);
+
+                $queryBuilder->whereDate("DATE", '=', $startDate)
+                    ->whereTime("TIME", ">=", $startTime);
+
+                $queryBuilder->whereDate("DATE", '=', $endDate)
                     ->whereTime("TIME", "<=", $endTime);
             }
 
